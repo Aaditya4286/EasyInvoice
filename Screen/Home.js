@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-// import LottieView from "lottie-react-native";
 import { DrawerActions } from '@react-navigation/native';
 
 

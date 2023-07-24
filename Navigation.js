@@ -1,7 +1,15 @@
 import React from 'react';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Screen/Home';
 import AboutUs from './Screen/DrawerScreens/AboutUs';
 import ContactUs from './Screen/DrawerScreens/ContactUs';
@@ -14,43 +22,57 @@ import ForgotPassword from './Screen/ForgotPassword';
 import ChangePassword from './Screen/ChangePassword';
 import SignUp from './Screen/SignUp';
 import MyProfile from './Screen/MyProfile';
+import Account from './Screen/TabScreens/Account';
+import CreateInvoice from './Screen/TabScreens/CreateInvoice';
 
 const Navigation = () => {
   const Drawer = createDrawerNavigator();
   const Stack = createStackNavigator();
+  const Tab = createBottomTabNavigator();
 
   const Drawers = () => {
     const DrawerContent = ({ navigation }) => {
+      const navigateToScreen = (screenName) => {
+        navigation.navigate(screenName);
+      };
+
+      const renderDrawerItem = (label, screenName) => {
+        return (
+          <TouchableOpacity
+            style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 8 }}
+            onPress={() => navigateToScreen(screenName)}
+          >
+            <Text style={styles.drawerItemText}>{label}</Text>
+            <TouchableOpacity onPress={() => navigateToScreen(screenName)}>
+              <Image source={require('./assets/arrow.png')} style={{ height: 18, width: 18 }} />
+            </TouchableOpacity>
+          </TouchableOpacity>
+        );
+      };
+
       return (
-        <DrawerContentScrollView >
-          <DrawerItem label="Dashboard" onPress={() => navigation.navigate('Dashboard')} />
-          <DrawerItem label="Invoice Guide" onPress={() => navigation.navigate('InvoiceGuide')} />
-          <DrawerItem label="Invoice Features" onPress={() => navigation.navigate('InvoiceFeatures')} />
-          <DrawerItem label="About Us" onPress={() => navigation.navigate('AboutUs')} />
-          <DrawerItem label="Contact Us" onPress={() => navigation.navigate('ContactUs')} />
-        </DrawerContentScrollView>
+        <View style={{ flex: 1 }}>
+          <DrawerContentScrollView>
+            {renderDrawerItem('Dashboard', 'Dashboard')}
+            {renderDrawerItem('Invoice Guide', 'InvoiceGuide')}
+            {renderDrawerItem('Invoice Features', 'InvoiceFeatures')}
+            {renderDrawerItem('About Us', 'AboutUs')}
+            {renderDrawerItem('Contact Us', 'ContactUs')}
+          </DrawerContentScrollView>
+        </View>
       );
     };
 
-    // const DrawerContent = ({ navigation }) => {
-    //   return (
-    //   <View style={{height:300,backgroundColor:"blue"}}>
-
-    //   </View>
-    //   );
-    // };
-
     return (
       <Drawer.Navigator
-        drawerContent={props=()=> <DrawerContent/>}
+        drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}
         screenOptions={{
           headerShown: false,
-          drawerPosition: "right",
-          drawerStyle: { width: 226
-           }
+          drawerPosition: 'right',
+          drawerStyle: { width: 226 },
         }}
       >
-        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="HomeTabs" component={HomeTabs} />
         <Drawer.Screen name="Dashboard" component={Dashboard} />
         <Drawer.Screen name="InvoiceGuide" component={InvoiceGuide} />
         <Drawer.Screen name="InvoiceFeatures" component={InvoiceFeatures} />
@@ -73,6 +95,34 @@ const Navigation = () => {
     );
   };
 
+  const HomeTabs = () => {
+    return (
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Screen name="Home" component={Home} 
+        options={{
+          tabBarIcon:()=>{
+            return (<Image style={styles.image} source={require('./assets/home.png')}/>)
+          }
+        }
+        }/>
+        <Tab.Screen name="Create Invoice" component={CreateInvoice}
+        options={{
+          tabBarIcon:()=>{
+            return (<Image style={styles.image1} source={require('./assets/plus1.png')}/>)
+          }
+        }
+        }  />
+        <Tab.Screen name="Account" component={Account}
+        options={{
+          tabBarIcon:()=>{
+            return (<Image style={styles.image} source={require('./assets/circle.png')}/>)
+          }
+        }
+        } />
+      </Tab.Navigator>
+    );
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -82,5 +132,22 @@ const Navigation = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  drawerItemText: {
+    flex: 1,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  image: {
+    height: 20,
+    width: 20
+  },
+  image1: {
+    height: 60,
+    width: 60,
+    marginBottom: 25
+  }
+});
 
 export default Navigation;
