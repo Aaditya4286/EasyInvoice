@@ -1,55 +1,82 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
-// import DropDownPicker from 'react-native-dropdown-picker';
+import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Alert} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-const ChangePassword = ({navigation}) => {
+const SignUp = ({navigation}) => {
   const [name, setName] = useState('');
-  const [companyname, setCompanyname] = useState('');
+  const [organisationName, setOrganisationName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [securePassword, setSecurePassword] = useState(true);
-  // const [country, setCountry] = useState('');
-  const [value, setValue] = useState(null);
+  // const [value, setValue] = useState(null);
+  const [country1,setCountry1]=useState()
 
-  const data = [
-    { label: 'India', value: '1' },
-    { label: 'Australia', value: '2' },
-    { label: 'Argentina', value: '3' },
-    { label: 'Afghanistan', value: '4' },
-    { label: 'Algeria', value: '5' },
-    { label: 'America', value: '6' },
-    { label: 'France', value: '7' },
-    { label: 'Canada', value: '8' },
+  const country = [
+    { label: 'India', value: 'India' },
+    { label: 'Australia', value: 'Australia' },
+    { label: 'Argentina', value: 'Argentina' },
+    { label: 'Afghanistan', value:'Afghanistan' },
+    { label: 'Algeria', value: 'Algeria' },
+    { label: 'America', value: 'America' },
+    // { label: 'France', value: '7' },
+    // { label: 'Canada', value: '8' },
   ];
+  // const handleLogin = () => {
+  //   if (validateEmail() && password.length > 5) {
+  //     setEmail('');
+  //     setPassword('');
+  //     return navigation.navigate('');
+  //   }
+    
+  //   if(!email){
+  //     return Alert.alert("Please Enter the E-mail")
+  //   }
+  //   if(!validateEmail()){
+  //     return Alert.alert('Please Enter Proper E-mail')
+  //   }
+  //   if(!password){
+  //     return Alert.alert("Please Enter Password")
+  //   }
+  //   if(!password.length<6){
+  //     return Alert.alert("Password must be of 6 Characters")
+  //   }  
+
+  // };
+
+  // const validateEmail = () => {
+  //   if((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email))
+  //   {
+  //   return true
+  //   }    
+  //   return false
+  // };
   const handleLogin = () => {
-    // if(validateEmail && password.length>5){
-    //   setEmail('')
-    //   setPassword('')
-    //   return navigation.navigate('')
-    // }
-    // if(!email){
-    //   return Alert.alert("Please Enter the E-mail")
-    // }
-    // if(!validateEmail()){
-    //   return Alert.alert('Please Enter Proper E-mail')
-    // }
-    // if(!password){
-    //   return Alert.alert("Please Enter Password")
-    // }
-    // if(!password.length<6){
-    //   return Alert.alert("Password must be of 6 Characters")
-    // }  
-
+    fetch('https://invoice-generator-backend-testing.onrender.com/api/auth/signup',
+     {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        organisationName: organisationName,
+        email: email,
+        password: password,
+        country: country1
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          navigation.navigate('Login');
+        } else {
+          Alert.alert('Authentication Failed', data.message);
+        }
+      })
+      .catch(error => {
+        Alert.alert('Error', 'An error occurred while logging in.');
+        console.error(error);
+      });
   };
-
-  const validateEmail = () => {
-    // if((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email))
-    // {
-    // return true
-    // }    
-    // return false
-  };
-
   return (
     <View>
       <Image style={styles.image} source={require("../assets/ei.png")} />
@@ -72,8 +99,8 @@ const ChangePassword = ({navigation}) => {
         <View style={styles.passwordContainer}>
           <TextInput
             style={styles.input}
-            value={companyname}
-            onChangeText={text => setCompanyname(text)}
+            value={organisationName}
+            onChangeText={text => setOrganisationName(text)}
             placeholder="Epsoft pvt ltd"
           />
         </View>
@@ -118,24 +145,23 @@ const ChangePassword = ({navigation}) => {
         <View style={styles.passwordContainer}>
         <Dropdown
         style={styles.input}
-        data={data}
+        data={country}
         search
         maxHeight={300}
         labelField="label"
         valueField="value"
         placeholder="Select Country"
         searchPlaceholder="Search..."
-        value={value}
+        value={country1}
         dropdownPosition='top'
         onChange={item => {
-          setValue(item.value);
+          setCountry1(item?.value);
         }}
-       
       />
       </View>
       </View>
 
-      <TouchableOpacity style={styles.button} >
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>CREATE ACCOUNT</Text>
       </TouchableOpacity>
 
@@ -276,4 +302,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default ChangePassword;
+export default SignUp;

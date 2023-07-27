@@ -1,39 +1,40 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
-
-const Login = ({navigation}) => {
+import { useNavigation } from '@react-navigation/native';
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [securePassword, setSecurePassword] = useState(true);
+  const navigation = useNavigation();
+
 
   const handleLogin = () => {
-    // if(validateEmail && password.length>5){
-    //   setEmail('')
-    //   setPassword('')
-    //   return navigation.navigate('')
-    // }
-    // if(!email){
-    //   return Alert.alert("Please Enter the E-mail")
-    // }
-    // if(!validateEmail()){
-    //   return Alert.alert('Please Enter Proper E-mail')
-    // }
-    // if(!password){
-    //   return Alert.alert("Please Enter Password")
-    // }
-    // if(!password.length<6){
-    //   return Alert.alert("Password must be of 6 Characters")
-    // }  
-
+    fetch('https://invoice-generator-backend-testing.onrender.com/api/auth/signin',
+     {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          navigation.navigate('Drawers');
+        } else {
+          Alert.alert('Authentication Failed', data.message);
+        }
+      })
+      .catch(error => {
+        Alert.alert('Error', 'An error occurred while logging in.');
+        console.error(error);
+      });
   };
 
-  const validateEmail = () => {
-    // if((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email))
-    // {
-    // return true
-    // }    
-    // return false
-  };
+  
 
   return (
     <View>
@@ -62,7 +63,7 @@ const Login = ({navigation}) => {
             onChangeText={text => setPassword(text)}
             placeholder="Enter your password"
             secureTextEntry={securePassword}
-            onEndEditing={handleLogin}
+            // onEndEditing={handleLogin}
           />
 
           <TouchableOpacity
@@ -81,9 +82,9 @@ const Login = ({navigation}) => {
         <Text style={styles.text2}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Drawers')}>
-        <Text style={styles.buttonText}>LOG IN</Text>
-      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+  <Text style={styles.buttonText}>LOG IN</Text>
+</TouchableOpacity>
 
       <TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate('SignUp')}>
         <View style={styles.signupButton}>

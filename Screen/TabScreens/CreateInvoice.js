@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import {
   View,                                                                                                   
   Text,
@@ -11,9 +11,12 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import { Dropdown } from 'react-native-element-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { DrawerActions } from '@react-navigation/native';
 
-
-const CreateInvoice = () => {
+const CreateInvoice = ({ navigation }) => {
+  const onPress = () => {
+    navigation.dispatch(DrawerActions.openDrawer());
+  };
   const handleSelectFile = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -22,7 +25,7 @@ const CreateInvoice = () => {
         aspect: [4, 3],
         quality: 1,
       });
-      if (!result.cancelled) {
+      if (!result.canceled) {
         console.log('Selected image:', result.uri);
       }                                                                         
     } catch (error) {
@@ -32,17 +35,35 @@ const CreateInvoice = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [invoiceFrom, setInvoiceFrom] = useState('');
   const [invoiceTo, setInvoiceTo] = useState('');
+  const [invoicetext, setInvoiceText] = useState('');
+  const [invoiceidtext, setInvoiceIdText] = useState('INVOICE ID');
   const [shipTo, setShipTo] = useState('');
+  const [shiptotext, setShipToText] = useState('SHIP TO');
+  const [billtotext, setBillToText] = useState('BILL TO');
   const [arrowValue, setArrowValue] = useState('1');
   const [formattedDate, setFormattedDate] = useState('');
   const [isDueDatePickerVisible, setDueDatePickerVisibility] = useState(false);
   const [dueDate, setDueDate] = useState('');
+  const [duedatetext, setDueDateText] = useState('DUE DATE');
+  const [datetext, setDateText] = useState('DATE');
+  const [itemtext, setItemText] = useState('ITEM');
+  const [subtotaltext, setSubtotalText] = useState('SUBTOTAL');
+  const [taxtext, setTaxText] = useState('TAX');
+  const [totaltext, setTotalText] = useState('TOTAL');
   const [formattedDueDate, setFormattedDueDate] = useState('');
   const [paymentMode, setPaymentMode] = useState('');
   const [ponumber, setPoNumber] = useState('');
+  const [ponumbertext, setPoNumberText] = useState('PO NUMBER');
+  const [paymentmodetext, setPaymentModeText] = useState('PAYMENT MODE');
+  const [amountpaidtext, setAmountPaidText] = useState('AMOUNT PAID');
+  const [qtytext, setQtyText] = useState('QTY');
+  const [ratetext, setRateText] = useState('RATE');
+  const [balancetext, setBalanceText] = useState('BALANCE');
   const [name, setName] = useState('');
   const [rate, setRate] = useState('');
-  const [amount, setAmount] = useState('');
+  const [amounttext, setAmountText] = useState('AMOUNT');
+  const [notestext, setNotesText] = useState('NOTES');
+  const [termsandconditiontext, setTermsandConditionText] = useState('TERMS & CONDITION');
   const [subtotal, setSubtotal] = useState('');
   const [tax, setTax] = useState('');
   const [refresh, setrefresh] = useState(true);
@@ -55,7 +76,7 @@ const CreateInvoice = () => {
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [selectedThemeColor, setSelectedThemeColor] = useState('');
   const [selectedTextColor, setSelectedTextColor] = useState('');
-  const [selectedSymbolColor, setSelectedSymbolColor] = useState('');
+  const [totalAmount, setTotalAmount] = useState(0);
 
 
 
@@ -149,7 +170,10 @@ const CreateInvoice = () => {
     setrefreshDiscount(!refreshDiscount);
   };
 
-
+  useEffect(() => {
+    const calculatedTotal = rate * arrowValue;
+    setTotalAmount(calculatedTotal);
+  }, [rate, arrowValue]);
   
   const renderDiscountInputBox = () => {
     if (showDiscount) {
@@ -164,10 +188,10 @@ const CreateInvoice = () => {
               keyboardType="numeric"
             ></TextInput>
             {refreshDiscount ? null :
-              <Text style={{ right: 15, paddingLeft: 12 }}>%</Text>}
+              <Text style={{  paddingLeft: 12 }}>%</Text>}
             <TouchableOpacity onPress={discountBtn}>
               <Image
-                style={{ height: 16, width: 16, right: 9 }}
+                style={{ height: 16, width: 16, right: 9,marginTop:10 }}
                 source={require('../TabScreens/refresh.png')}
               />
             </TouchableOpacity>
@@ -204,14 +228,14 @@ const CreateInvoice = () => {
         <View style={styles.headerLeft}>
           <Text style={styles.headerText}>CREATE INVOICE</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
           <Image style={styles.headerImage} source={require("../TabScreens/Square.png")} />
         </TouchableOpacity>
       </View>
 
       <ScrollView style={{paddingBottom:200}}>
-        <View style={styles.container}>
-          <View style={[styles.dottedLineBox, { height: 66 }, { marginTop: 32 }]}>
+        <View style={[styles.container,{padding:16}]}>
+          <View style={[styles.dottedLineBox, { height: 66 }, { marginTop: 32 },{padding:16}]}>
             <View style={styles.imageContainer}>
               <Image style={styles.logoImage} source={require("../TabScreens/gal.png")} />
             </View>
@@ -234,7 +258,16 @@ const CreateInvoice = () => {
             {!invoiceFrom && <Text style={styles.sign}>*</Text>}
           </View>
 
-          <Text style={styles.label}>BILL TO</Text>
+          <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="BILL TO"
+             placeholderTextColor={selectedTextColor}
+             value={billtotext}
+             onChangeText={(w) => setBillToText(w)}
+             color={selectedTextColor}
+            />
+          </View>
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
             <TextInput
               style={styles.dashedTextInput}
@@ -246,7 +279,16 @@ const CreateInvoice = () => {
             {!invoiceTo && <Text style={styles.sign}>*</Text>}
           </View>
 
-          <Text style={styles.label}>SHIP TO</Text>
+          <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="SHIP TO"
+             placeholderTextColor={selectedTextColor}
+             value={shiptotext}
+             onChangeText={(w) => setShipToText(w)}
+             color={selectedTextColor}
+            />
+          </View>
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
             <TextInput
               style={styles.dashedTextInput}
@@ -257,12 +299,30 @@ const CreateInvoice = () => {
             />
           </View>
 
-          <Text style={styles.input}>INVOICE</Text>
-          <Text style={styles.input1}>INVOICE ID</Text>
+          <View>
+          <TextInput 
+             style={styles.input}
+             placeholder="INVOICE"
+             placeholderTextColor={selectedTextColor}
+             value={invoicetext}
+             onChangeText={(l) => setInvoiceText(l)}
+             color={selectedTextColor}
+            />
+          </View>
+          <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="INVOICE ID"
+             placeholderTextColor={selectedTextColor}
+             value={invoiceidtext}
+             onChangeText={(w) => setInvoiceIdText(w)}
+             color={selectedTextColor}
+            />
+          </View>
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
             <View style={styles.dropdownContainer}>
-              <View style={styles.squareView}>
-                <Text style={styles.squareText}>#</Text>
+              <View style={[styles.squareView,{backgroundColor: selectedThemeColor}]}>
+                <Text style={[styles.squareText,{color:selectedTextColor}]}>#</Text>
               </View>
               <Dropdown
                 style={styles.dropdown}
@@ -279,8 +339,17 @@ const CreateInvoice = () => {
               />
             </View>
           </View>
-          <Text style={styles.input1}>DATE</Text>
-          <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
+          <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="DATE"
+             placeholderTextColor={selectedTextColor}
+             value={datetext}
+             onChangeText={(Q) => setDateText(Q)}
+             color={selectedTextColor}
+            />
+          </View>         
+           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
           <TextInput
           style={styles.dashedTextInput}
           value={formattedDate}
@@ -300,9 +369,16 @@ const CreateInvoice = () => {
         onCancel={hideDatePicker}
         textColor='#2155CD'
       />
-
-
-<Text style={styles.input1}>DUE DATE</Text>
+           <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="DUE DATE"
+             placeholderTextColor={selectedTextColor}
+             value={duedatetext}
+             onChangeText={(Q) => setDueDateText(Q)}
+             color={selectedTextColor}
+            />
+          </View>
       <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
         <TextInput
           style={styles.dashedTextInput}
@@ -325,7 +401,16 @@ const CreateInvoice = () => {
         onCancel={hideDueDatePicker}
         textColor='#2155CD'
       />
-<Text style={styles.label}>PAYMENT MODE</Text>
+          <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="PAYMENT MODE"
+             placeholderTextColor={selectedTextColor}
+             value={paymentmodetext}
+             onChangeText={(u) => setPaymentModeText(u)}
+             color={selectedTextColor}
+            />
+          </View>
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
             <TextInput
               style={styles.dashedTextInput}
@@ -335,9 +420,19 @@ const CreateInvoice = () => {
               onChangeText={(l) => setPaymentMode(l)}
             />
           </View>
+          <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="PO NUMBER"
+             placeholderTextColor={selectedTextColor}
+             value={ponumbertext}
+             onChangeText={(b) => setPoNumberText(b)}
+             color={selectedTextColor}
+            />
+          </View>
 
-          <Text style={styles.label}>PO NUMBER</Text>
           <View style={[styles.dottedLineBox, { height: 48 },{ marginTop: 6 }]}>
+          
             <TextInput
               style={styles.dashedTextInput}
               placeholder="PONUM123456"
@@ -346,8 +441,19 @@ const CreateInvoice = () => {
               onChangeText={(Q) => setPoNumber(Q)}
             />
           </View>
+          <View style={{ height: 200,backgroundColor: selectedThemeColor,paddingHorizontal:16}}>
           <View style={styles.itemRow}>
-            <Text style={styles.label}>ITEM</Text>
+          <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="ITEM"
+             placeholderTextColor={selectedTextColor}
+             value={itemtext}
+             onChangeText={(r) => setItemText(r)}
+             color={selectedTextColor}
+            />
+          </View>
+
             <TouchableOpacity>
               <Image
                 style={styles.delete}
@@ -382,7 +488,17 @@ const CreateInvoice = () => {
 
           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:20}}>
             <View style={{hadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
-            <Text style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}>QTY</Text>
+            <View>
+          <TextInput 
+             style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
+             placeholder="QTY"
+             placeholderTextColor={selectedTextColor}
+             value={qtytext}
+             onChangeText={(t) => setQtyText(t)}
+             color={selectedTextColor}
+            />
+          </View>
+            {/* <Text style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}>QTY</Text> */}
             <Dropdown
                 style={{height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14,borderRadius: 6,}}
                 data={quantityData}
@@ -393,12 +509,21 @@ const CreateInvoice = () => {
                 value={arrowValue}
                 dropdownPosition='top'
                 onChange={(item) => {
-                  setArrowValue(item.value);
+                setArrowValue(item.value);
                 }}
               />
             </View>
             <View style={{hadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
-          <Text style={{fontSize:12,fontWeight:"bold",marginLeft:16}}>RATE</Text>
+            <View>
+          <TextInput 
+             style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
+             placeholder="RATE"
+             placeholderTextColor={selectedTextColor}
+             value={ratetext}
+             onChangeText={(o) => setRateText(o)}
+             color={selectedTextColor}
+            />
+          </View>
           <TextInput
                 style={{height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14,borderRadius: 6}}
                 placeholder="$ 00"
@@ -408,11 +533,21 @@ const CreateInvoice = () => {
                 onChangeText={t => setRate(t)}
               />
           </View>
-          <View style={{hadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
-          <Text style={{fontSize:12,fontWeight:"bold",marginLeft:16}}>AMOUNT</Text>
-          <Text
+          <View style={{hadowColor: "black",shadowOpacity:0.2,shadowRadius:10,}}>
+          <View>
+          <TextInput 
+             style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
+             placeholder="AMOUNT"
+             placeholderTextColor={selectedTextColor}
+             value={amounttext}
+             onChangeText={(f) => setAmountText(f)}
+             color={selectedTextColor}
+            />
+          </View>         
+           <Text
                 style={{height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14,borderRadius: 6, alignSelf:"center",paddingTop:15}}
               >{rate*arrowValue}</Text>
+          </View>
           </View>
           </View>
 
@@ -427,18 +562,35 @@ const CreateInvoice = () => {
           </View>
         </View>
       </TouchableOpacity>
-      <Text style={styles.input}>Invoice Summary</Text>
-
-      <Text style={styles.label}>SUBTOTAL</Text>
-          <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
-            <Text
-              style={[styles.dashedTextInput,{paddingTop:15}]}
-              value={subtotal}
-              onChangeText={(u) => setSubtotal(u)}
-            >{rate*arrowValue}</Text>
+      <View style={{backgroundColor: selectedThemeColor}}>
+      <Text style={[styles.input,{color:selectedTextColor}]}>Invoice Summary</Text>
+      </View>
+      <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="SUBTOTAL"
+             placeholderTextColor={selectedTextColor}
+             value={subtotaltext}
+             onChangeText={(s) => setSubtotalText(s)}
+             color={selectedTextColor}
+            />
           </View>
+      <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
+        <Text style={[styles.dashedTextInput, { paddingTop: 15 }]}>
+          {totalAmount.toFixed(2)}
+        </Text>
+      </View>
 
-          <Text style={styles.label}>TAX</Text>
+      <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="TAX"
+             placeholderTextColor={selectedTextColor}
+             value={taxtext}
+             onChangeText={(e) => setTaxText(e)}
+             color={selectedTextColor}
+            />
+          </View>
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
             {refresh?    
             <Text style={{left:10}}>$</Text>: null}
@@ -475,13 +627,31 @@ const CreateInvoice = () => {
 
     {renderDiscountInputBox()}
     {renderShippingInputBox()}
-      <View style={{flexDirection: 'row' ,justifyContent:'space-between'}}>
-      <Text style={{fontWeight:'bold',fontSize: 12}}>TOTAL</Text>
-      <Text style={{color:'blue'}}>$ 0.00</Text>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
+        <View>
+          <TextInput 
+             style={{ fontSize: 12, fontWeight: 'bold' }}
+             placeholder="TOTAL"
+             placeholderTextColor={selectedTextColor}
+             value={totaltext}
+             onChangeText={(p) => setTotalText(p)}
+             color={selectedTextColor}
+            />
+          </View>
+        <Text style={{ color: 'blue' }}>$ {totalAmount.toFixed(2)}</Text>
       </View>
 
 
-      <Text style={styles.label}>AMOUNT PAID</Text>
+      <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="AMOUNT PAID"
+             placeholderTextColor={selectedTextColor}
+             value={amountpaidtext}
+             onChangeText={(s) => setAmountPaidText(s)}
+             color={selectedTextColor}
+            />
+          </View>          
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
             <Text
               style={[styles.dashedTextInput,{paddingTop:15}]}
@@ -490,15 +660,33 @@ const CreateInvoice = () => {
             >{rate*arrowValue}</Text>
           </View>
 
-          <View style={{flexDirection: 'row' ,justifyContent:'space-between'}}>
-      <Text style={{fontSize: 12, fontWeight:'bold'}}>BALANCE</Text>
-      <Text>$ 0.00</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: selectedThemeColor }}>
+          <View>
+          <TextInput 
+             style={{ fontSize: 12, fontWeight: 'bold' }}
+             placeholder="BALANCE"
+             placeholderTextColor={selectedTextColor}
+             value={balancetext}
+             onChangeText={(b) => setBalanceText(b)}
+             color={selectedTextColor}
+            />
+          </View>
+        <Text>${totalAmount.toFixed(2)}</Text>
       </View>
 
       
 
     
-      <Text style={styles.label}>NOTES</Text>
+      <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="NOTES"
+             placeholderTextColor={selectedTextColor}
+             value={notestext}
+             onChangeText={(n) => setNotesText(n)}
+             color={selectedTextColor}
+            />
+          </View> 
       <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
         <TextInput
           style={styles.dashedTextInput}
@@ -509,7 +697,16 @@ const CreateInvoice = () => {
       </View>
 
       
-      <Text style={styles.label}>TERMS & CONDITION</Text>
+      <View>
+          <TextInput 
+             style={styles.label}
+             placeholder="TERMS & CONDITION"
+             placeholderTextColor={selectedTextColor}
+             value={termsandconditiontext}
+             onChangeText={(c) => setTermsandConditionText(c)}
+             color={selectedTextColor}
+            />
+          </View> 
       <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
         <TextInput
           style={styles.dashedTextInput}
@@ -676,6 +873,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 24,
     alignItems: 'center',
+    bottom: 10
   },
   signupButton: {
     width: 353,
@@ -720,8 +918,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   selectFileButton: {
-    padding: 8,
-    borderRadius: 4,
+    // padding: 8,
+    // borderRadius: 4,
     textDecorationLine: "underline"
   },
   selectFileButtonContent: {
@@ -734,7 +932,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   passwordToggle: {
-    position: 'absolute',
+    // position: 'absolute',
     right: 10,
   },
   Icon: {
@@ -770,7 +968,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 16,
+    // padding: 16,
   },
   dottedLineBox: {
     borderWidth: 1,
@@ -780,7 +978,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderColor: "#888888",
     flexDirection: "row",
-    alignItems: "center",
+    // alignItems: "center",
   },
   imageContainer: {
     marginRight: 8,
@@ -797,6 +995,8 @@ const styles = StyleSheet.create({
     color: "#888888",
     marginLeft: 8,
     textAlign: "left",
+    height:150,
+    bottom: 5
   },
   underlineText: {
     textDecorationLine: "underline",
@@ -854,7 +1054,7 @@ const styles = StyleSheet.create({
   dashedTextInput:{
     flex:1,
     height:43,
-    // width:100
+    bottom:7
   }
 });
 

@@ -3,6 +3,33 @@ import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Alert } fro
 
 const ForgotPassword = ({navigation}) => {
   const [email, setEmail] = useState('');
+
+  const handleLogin = () => {
+    fetch('https://invoice-generator-backend-testing.onrender.com/api/auth/forget',
+     {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          navigation.navigate('Login');
+        } else {
+          Alert.alert('Authentication Failed', data.message);
+        }
+      })
+      .catch(error => {
+        Alert.alert('Error', 'An error occurred while resetting password.');
+        console.error(error);
+      });
+  };
+
+
   return (
     <View>
     <Image style={styles.image} source={require("../assets/ei.png")} />
@@ -19,7 +46,7 @@ const ForgotPassword = ({navigation}) => {
     keyboardType='email-address'
   />
 </View>
-<TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('ChangePassword')}>
+<TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>RESET PASSWORD</Text>
       </TouchableOpacity>
 </View>

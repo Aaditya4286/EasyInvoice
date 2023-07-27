@@ -16,12 +16,15 @@ import ContactUs from './Screen/DrawerScreens/ContactUs';
 import Dashboard from './Screen/DrawerScreens/Dashboard';
 import InvoiceGuide from './Screen/DrawerScreens/InvoiceGuide';
 import InvoiceFeatures from './Screen/DrawerScreens/InvoiceFeatures';
+import FAQ from './Screen/DrawerScreens/FAQ';
+import Logout from './Screen/DrawerScreens/Logout';
+import PrivacyandPolicy from './Screen/DrawerScreens/PrivacyandPolicy';
+import TandC from './Screen/DrawerScreens/TandC';
 import Intro from './Screen/Intro';
 import Login from './Screen/Login';
 import ForgotPassword from './Screen/ForgotPassword';
 import ChangePassword from './Screen/ChangePassword';
 import SignUp from './Screen/SignUp';
-import MyProfile from './Screen/MyProfile';
 import Account from './Screen/TabScreens/Account';
 import CreateInvoice from './Screen/TabScreens/CreateInvoice';
 
@@ -58,6 +61,10 @@ const Navigation = () => {
             {renderDrawerItem('Invoice Features', 'InvoiceFeatures')}
             {renderDrawerItem('About Us', 'AboutUs')}
             {renderDrawerItem('Contact Us', 'ContactUs')}
+            {renderDrawerItem('Frequently Asked Questions', 'FAQ')}
+            {renderDrawerItem('Terms & Conditions', 'TandC')}
+            {renderDrawerItem('Privacy Policy', 'PrivacyandPolicy')}
+            {renderDrawerItem('Log Out', 'Logout')}
           </DrawerContentScrollView>
         </View>
       );
@@ -78,6 +85,10 @@ const Navigation = () => {
         <Drawer.Screen name="InvoiceFeatures" component={InvoiceFeatures} />
         <Drawer.Screen name="AboutUs" component={AboutUs} />
         <Drawer.Screen name="ContactUs" component={ContactUs} />
+        <Drawer.Screen name="FAQ" component={FAQ} />
+        <Drawer.Screen name="TandC" component={TandC} />
+        <Drawer.Screen name="PrivacyandPolicy" component={PrivacyandPolicy} />
+        <Drawer.Screen name="Logout" component={Logout} />
       </Drawer.Navigator>
     );
   };
@@ -90,7 +101,7 @@ const Navigation = () => {
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="MyProfile" component={MyProfile} />
+        <Stack.Screen name="Account" component={Account} />
       </Stack.Navigator>
     );
   };
@@ -128,6 +139,7 @@ const Navigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="AuthStack" component={AuthStack} />
         <Stack.Screen name="Drawers" component={Drawers} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
