@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ScrollView,
   TextInput
 } from "react-native";
 
@@ -21,6 +20,7 @@ const Account = () => {
 
   return (
     <View>
+      
     <View
         style={{
           height: 106,

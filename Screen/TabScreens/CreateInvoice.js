@@ -181,14 +181,14 @@ const CreateInvoice = ({ navigation }) => {
         <View>
           <Text style={styles.label}>Discount</Text>
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
-            {refreshDiscount ? <Text style={{ left: 10 }}>$</Text> : null}
+            {refreshDiscount ? <Text style={{ left: 10 ,top: 6 }}>$</Text> : null}
             <TextInput
-              style={[styles.dashedTextInput, { alignSelf: "center", paddingLeft: 240 }]}
+              style={[styles.dashedTextInput, { alignSelf: "center", paddingLeft: 240, top:2 }]}
               placeholderTextColor="#000000"
               keyboardType="numeric"
             ></TextInput>
             {refreshDiscount ? null :
-              <Text style={{  paddingLeft: 12 }}>%</Text>}
+              <Text style={{  right:18, top : 8}}>%</Text>}
             <TouchableOpacity onPress={discountBtn}>
               <Image
                 style={{ height: 16, width: 16, right: 9,marginTop:10 }}
@@ -207,7 +207,7 @@ const CreateInvoice = ({ navigation }) => {
         <View>
           <Text style={styles.label}>Shipping</Text>
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
-            <Text style={{ left: 10 }}>$</Text>
+            <Text style={{ left: 10 , top:6}}>$</Text>
             <TextInput
                style={[styles.dashedTextInput, { textAlign: 'right' }]}
               placeholder="0.00"
@@ -255,7 +255,7 @@ const CreateInvoice = ({ navigation }) => {
               value={invoiceFrom}
               onChangeText={(v) => setInvoiceFrom(v)}
             />
-            {!invoiceFrom && <Text style={styles.sign}>*</Text>}
+            {/* {!invoiceFrom && <Text style={styles.sign}>*</Text>} */}
           </View>
 
           <View>
@@ -276,7 +276,7 @@ const CreateInvoice = ({ navigation }) => {
               value={invoiceTo}
               onChangeText={(k) => setInvoiceTo(k)}
             />
-            {!invoiceTo && <Text style={styles.sign}>*</Text>}
+            {/* {!invoiceTo && <Text style={styles.sign}>*</Text>} */}
           </View>
 
           <View>
@@ -487,7 +487,7 @@ const CreateInvoice = ({ navigation }) => {
           </View>
 
           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:20}}>
-            <View style={{hadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
+            <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
             <View>
           <TextInput 
              style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
@@ -513,7 +513,7 @@ const CreateInvoice = ({ navigation }) => {
                 }}
               />
             </View>
-            <View style={{hadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
+            <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
             <View>
           <TextInput 
              style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
@@ -533,7 +533,7 @@ const CreateInvoice = ({ navigation }) => {
                 onChangeText={t => setRate(t)}
               />
           </View>
-          <View style={{hadowColor: "black",shadowOpacity:0.2,shadowRadius:10,}}>
+          <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
           <View>
           <TextInput 
              style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
@@ -543,10 +543,10 @@ const CreateInvoice = ({ navigation }) => {
              onChangeText={(f) => setAmountText(f)}
              color={selectedTextColor}
             />
-          </View>         
-           <Text
-                style={{height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14,borderRadius: 6, alignSelf:"center",paddingTop:15}}
-              >{rate*arrowValue}</Text>
+          </View>  
+          <View style={{borderRadius:6,height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14, alignSelf:"center",paddingTop:15}} >      
+           <Text>{rate*arrowValue}</Text>
+              </View>
           </View>
           </View>
           </View>
@@ -593,20 +593,20 @@ const CreateInvoice = ({ navigation }) => {
           </View>
           <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
             {refresh?    
-            <Text style={{left:10}}>$</Text>: null}
+            <Text style={{left:10,top:6}}>$</Text>: null}
             
             <TextInput
-              style={[styles.dashedTextInput,{alignSelf:"center",paddingLeft:240}]}
+              style={[styles.dashedTextInput,{alignSelf:"center",paddingLeft:240,top: 2}]}
               placeholderTextColor="#000000"
               value={tax}
               onChangeText={(y) => setTax(y)}
               keyboardType="numeric"
             ></TextInput>
             {refresh?null:
-            <Text style={{right:15,paddingLeft:12}}>%</Text>}
+            <Text style={{right:15,paddingLeft:12,top:9}}>%</Text>}
             <TouchableOpacity onPress={taxBtn}>
             <Image
-                style={{height: 16, width: 16,right:9}}
+                style={{height: 16, width: 16,right:9,marginTop:10}}
                 source={require('../TabScreens/refresh.png')}
               />
             </TouchableOpacity>
@@ -939,7 +939,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: 18,
     width:20,
-    right: 7
+    right: 7,
+    top:6
   },
   header: {
     height: 106,

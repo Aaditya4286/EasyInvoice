@@ -19,6 +19,7 @@ import InvoiceFeatures from './Screen/DrawerScreens/InvoiceFeatures';
 import FAQ from './Screen/DrawerScreens/FAQ';
 import Logout from './Screen/DrawerScreens/Logout';
 import PrivacyandPolicy from './Screen/DrawerScreens/PrivacyandPolicy';
+import Settings from './Screen/DrawerScreens/Settings';
 import TandC from './Screen/DrawerScreens/TandC';
 import Intro from './Screen/Intro';
 import Login from './Screen/Login';
@@ -64,6 +65,7 @@ const Navigation = () => {
             {renderDrawerItem('Frequently Asked Questions', 'FAQ')}
             {renderDrawerItem('Terms & Conditions', 'TandC')}
             {renderDrawerItem('Privacy Policy', 'PrivacyandPolicy')}
+            {renderDrawerItem('Settings', 'Settings')}
             {renderDrawerItem('Log Out', 'Logout')}
           </DrawerContentScrollView>
         </View>
@@ -88,6 +90,7 @@ const Navigation = () => {
         <Drawer.Screen name="FAQ" component={FAQ} />
         <Drawer.Screen name="TandC" component={TandC} />
         <Drawer.Screen name="PrivacyandPolicy" component={PrivacyandPolicy} />
+        <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="Logout" component={Logout} />
       </Drawer.Navigator>
     );

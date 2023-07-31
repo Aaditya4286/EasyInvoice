@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
 text: {
   marginTop: 13,
   color: "white",
-  marginHorizontal: 16,
+  marginLeft:44,
   fontWeight: "bold",
   fontSize:24
 },
