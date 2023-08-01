@@ -12,15 +12,10 @@ import {
 const InvoiceGuide = () => {
   return (
     <View style={{ flex: 1 }}>
-    <View
-        style={{
-          height: 106,
-          backgroundColor: "#2155CD",
-          paddingTop: 40,
-        }}
-      >
-      <Text style={styles.text}>Invoice Guide</Text>
-    </View>
+    <View style={{ height: 106, backgroundColor: "#2155CD", flexDirection: 'row', alignItems: 'center', }}>
+        <TouchableOpacity><Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
+        <Text style={styles.text}>Invoice Guide</Text>
+      </View>
     <View style={{ flex: 1 }}>
         <ScrollView>
     <Text style={{marginTop:32, textAlign:'center', fontWeight:'400',marginHorizontal:16}}>Create & download invoices for free, If you want to save your invoice data on cloud just create your account.</Text>
@@ -45,11 +40,11 @@ const InvoiceGuide = () => {
   )}
   const styles = StyleSheet.create({
     text: {
-      marginTop: 13,
+      marginTop: 20,
       color: "white",
       fontWeight: "bold",
       fontSize:24,
-      marginLeft:44 
+      marginLeft:16 
     },
     button: {
       backgroundColor:'#2155CD',

@@ -12,15 +12,10 @@ import {
 const PrivacyandPolicy = () => {
   return (
     <View style={{ flex: 1 }}>
-    <View
-        style={{
-          height: 106,
-          backgroundColor: "#2155CD",
-          paddingTop: 40,
-        }}
-      >
-      <Text style={styles.text}>Terms & Conditions</Text>
-    </View>
+    <View style={{ height: 106, backgroundColor: "#2155CD", flexDirection: 'row', alignItems: 'center', }}>
+        <TouchableOpacity><Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
+        <Text style={styles.text}>Terms and Conditions</Text>
+      </View>
     <View style={{ flex: 1 }}>
         <ScrollView>
             <Text style={{marginTop:32, alignSelf:'center',fontSize:18, fontWeight:'bold',marginHorizontal:12}}>Welcome to our invoice generator website! Before using our service, we kindly ask you to read and agree to the following terms and conditions.</Text>
@@ -61,9 +56,9 @@ const PrivacyandPolicy = () => {
 }
 const styles = StyleSheet.create({
   text: {
-    marginTop: 13,
+    marginTop: 20,
     color: "white",
-    marginLeft:44,
+    marginLeft:16,
     fontWeight: "bold",
     fontSize:24
   },
