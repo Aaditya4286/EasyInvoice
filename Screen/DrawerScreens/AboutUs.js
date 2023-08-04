@@ -11,16 +11,23 @@ import {
 
 const AboutUs = () => {
   return (
-    <View>
-    <View
+    <View style={{ flex: 1 }}>
+      <View
         style={{
           height: 106,
-          backgroundColor: "#2155CD",
-          paddingTop: 40,
+          backgroundColor: '#2155CD', 
+          flexDirection: 'row',
+          alignItems: 'center',
         }}
       >
-      <Text style={styles.text}>About Us</Text>
-    </View>
+        <TouchableOpacity>
+          <Image
+            style={{ height: 12, width: 15, marginLeft: 18, marginTop: 20 }}
+            source={require('../DrawerScreens/mode.png')}
+          />
+        </TouchableOpacity>
+        <Text style={styles.text}>About Us</Text>
+      </View>
 <Text style={{marginTop:32, alignSelf:'center',fontSize:18, fontWeight:'bold'}}>Welcome To Easy Invoice Generator</Text>
 
 <Image style={{height:185,width:315,alignSelf:'center'}}
@@ -38,11 +45,11 @@ const AboutUs = () => {
 }
 const styles = StyleSheet.create({
   text: {
-    marginTop: 13,
-    color: "white",
-    marginLeft: 44,
-    fontWeight: "bold",
-    fontSize:24
+    marginTop: 20,
+    color: 'white',
+    marginLeft: 16,
+    fontWeight: 'bold',
+    fontSize: 24,
   },
 })
 export default AboutUs

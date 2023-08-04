@@ -15,16 +15,23 @@ const ContactUs = () => {
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
   return (
-    <View>
-    <View
+    <View style={{ flex: 1 }}>
+      <View
         style={{
           height: 106,
-          backgroundColor: "#2155CD",
-          paddingTop: 40,
+          backgroundColor: '#2155CD',
+          flexDirection: 'row',
+          alignItems: 'center',
         }}
       >
-      <Text style={styles.text}>Contact Us</Text>
-    </View>
+        <TouchableOpacity>
+          <Image
+            style={{ height: 12, width: 15, marginLeft: 18, marginTop: 20 }}
+            source={require('../DrawerScreens/mode.png')}
+          />
+        </TouchableOpacity>
+        <Text style={styles.text}>Contact Us</Text>
+      </View>
 
 <Text style={styles.text2}>Please use this form to contact us and we willget back to you as soon as possible</Text>
 <View style={styles.inputContainer}>
@@ -100,13 +107,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16
   },
-text: {
-  marginTop: 13,
-  color: "white",
-  marginLeft:44,
-  fontWeight: "bold",
-  fontSize:24
-},
+  text: {
+    marginTop: 20,
+    color: 'white',
+    marginLeft: 16,
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
 text2: {
   marginTop:32,
   alignSelf:'center',

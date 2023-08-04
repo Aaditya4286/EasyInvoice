@@ -20,7 +20,6 @@ const Account = () => {
 
   return (
     <View>
-      
     <View
         style={{
           height: 106,
