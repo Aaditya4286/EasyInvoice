@@ -8,7 +8,7 @@ import {
   TextInput
 } from 'react-native';
 
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
   const [mytodo, setMyToDo] = useState('');
 
   return (
@@ -21,7 +21,7 @@ const Dashboard = () => {
           alignItems: 'center',
         }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
           <Image
             style={{ height: 12, width: 15, marginLeft: 18, marginTop: 20 }}
             source={require('../DrawerScreens/mode.png')}

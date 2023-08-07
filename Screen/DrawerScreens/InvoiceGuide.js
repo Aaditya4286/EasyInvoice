@@ -9,11 +9,12 @@ import {
   TextInput
 } from "react-native";
 
-const InvoiceGuide = () => {
+const InvoiceGuide = ({navigation}) => {
   return (
     <View style={{ flex: 1 }}>
     <View style={{ height: 106, backgroundColor: "#2155CD", flexDirection: 'row', alignItems: 'center', }}>
-        <TouchableOpacity><Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
+    <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+                <Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
         <Text style={styles.text}>Invoice Guide</Text>
       </View>
     <View style={{ flex: 1 }}>

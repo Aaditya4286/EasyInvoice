@@ -77,9 +77,26 @@ const CreateInvoice = ({ navigation }) => {
   const [selectedThemeColor, setSelectedThemeColor] = useState('');
   const [selectedTextColor, setSelectedTextColor] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
+  const defaultThemeColor = 'white'; 
+  const defaultTextColor = 'black'; 
+  const [invoiceItems, setInvoiceItems] = useState([]);
 
-
-
+  const handleAddNewInvoiceItem = () => {
+    const updatedItems = [...invoiceItems];
+    updatedItems.push({
+      item: '',
+      qty: '1',
+      rate: '',
+      amount: '0',
+    });
+    setInvoiceItems(updatedItems);
+  };
+  const handleInvoiceItemChange = (index, field, value) => {
+    const updatedItems = [...invoiceItems];
+    updatedItems[index][field] = value;
+    setInvoiceItems(updatedItems);
+  };
+  
   const handleAddDiscount = () => {
     setShowDiscount(true);
   };
@@ -222,6 +239,18 @@ const CreateInvoice = ({ navigation }) => {
     }
     return null;
   };
+
+  const handleDeleteInvoiceItem = (index) => {
+    const updatedItems = [...invoiceItems];
+    updatedItems.splice(index, 1);
+    setInvoiceItems(updatedItems);
+  };
+  
+
+  const handleResetColors = () => {
+    setSelectedThemeColor(defaultThemeColor);
+    setSelectedTextColor(defaultTextColor);
+  };
   return (
     <View style={{ flex: 1,backgroundColor:"white"}}>
       <View style={styles.header}>
@@ -319,7 +348,7 @@ const CreateInvoice = ({ navigation }) => {
              color={selectedTextColor}
             />
           </View>
-          <View style={[styles.dottedLineBox, { height: 48 }, { marginTop: 6 }]}>
+          <View style={[styles.dottedLineBox, { height: 50 }, { marginTop: 6 }]}>
             <View style={styles.dropdownContainer}>
               <View style={[styles.squareView,{backgroundColor: selectedThemeColor}]}>
                 <Text style={[styles.squareText,{color:selectedTextColor}]}>#</Text>
@@ -441,50 +470,49 @@ const CreateInvoice = ({ navigation }) => {
               onChangeText={(Q) => setPoNumber(Q)}
             />
           </View>
-          <View style={{ height: 200,backgroundColor: selectedThemeColor,paddingHorizontal:16}}>
-          <View style={styles.itemRow}>
-          <View>
-          <TextInput 
-             style={styles.label}
-             placeholder="ITEM"
-             placeholderTextColor={selectedTextColor}
-             value={itemtext}
-             onChangeText={(r) => setItemText(r)}
-             color={selectedTextColor}
-            />
-          </View>
+          {invoiceItems.map((item, index) => (
+  <View key={index}>
+    <View style={styles.itemRow}>
+      <View>
+        <TextInput
+          style={styles.label}
+          placeholder="ITEM"
+          placeholderTextColor={selectedTextColor}
+          value={itemtext}
+          onChangeText={(r) => setItemText(r)}
+          color={selectedTextColor}
+        />
+      </View>
 
-            <TouchableOpacity>
-              <Image
-                style={styles.delete}
-                source={require('../TabScreens/del.png')}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            position: 'relative',
-            marginTop: 10,
-          }}>
+      {index > 0 && ( 
+        <TouchableOpacity onPress={() => handleDeleteInvoiceItem(index)}>
+          <Image
+            style={styles.delete}
+            source={require('../TabScreens/del.png')}
+          />
+        </TouchableOpacity>
+      )}
+    </View>
+         
+            <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative', marginTop: 10 }}>
             <TextInput
-              style={{
-                paddingHorizontal: 15,
-                height: 48,
-                borderRadius: 6,
-                backgroundColor: 'white',
-                elevation: 5,
-                flex: 1,
-                shadowColor: "black",
-                shadowOpacity:0.2,
-                shadowRadius:10
-              }}
-              value={name}
-              onChangeText={text => setName(text)}
-              placeholder="Description of service or product..."
-            />
-          </View>
+  style={{
+    paddingHorizontal: 15,
+    height: 48,
+    borderRadius: 6,
+    backgroundColor: 'white',
+    elevation: 5,
+    flex: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+  }}
+  value={item.item}
+  onChangeText={(text) => handleInvoiceItemChange(index, 'item', text)}
+  placeholder="Description of service or product..."
+/>
+
+            </View>
 
           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:20}}>
             <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
@@ -549,19 +577,16 @@ const CreateInvoice = ({ navigation }) => {
               </View>
           </View>
           </View>
-          </View>
+          </View> ))}
 
-          <TouchableOpacity style={styles.buttonContainer}>
-        <View style={styles.signupButton}>
-          <View style={{flexDirection: 'row'}}>
-        <Image
-                style={styles.add}
-                source={require('../TabScreens/add.png')}
-              />
-          <Text style={styles.signupText}>Add New Invoice Item</Text>
+          <TouchableOpacity style={styles.buttonContainer} onPress={handleAddNewInvoiceItem}>
+          <View style={styles.signupButton}>
+            <View style={{ flexDirection: 'row' }}>
+              <Image style={styles.add} source={require('../TabScreens/add.png')} />
+              <Text style={styles.signupText}>Add New Invoice Item</Text>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
       <View style={{backgroundColor: selectedThemeColor}}>
       <Text style={[styles.input,{color:selectedTextColor}]}>Invoice Summary</Text>
       </View>
@@ -736,7 +761,7 @@ const CreateInvoice = ({ navigation }) => {
       </View>
 
 
-      <TouchableOpacity style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate("SendInvoice")}>
         <View style={styles.signupButton}>
           <View style={{flexDirection: 'row'}}>
         <Image
@@ -798,9 +823,12 @@ const CreateInvoice = ({ navigation }) => {
 </View>
 
 
-<TouchableOpacity style={[styles.button, ]}>
-        <Text style={[styles.buttonText,{color:"white"}]}>RESET COLOR</Text>
-      </TouchableOpacity>
+<TouchableOpacity style={[styles.button]} onPress={handleResetColors}>
+  <Text style={[styles.buttonText, { color: 'white' }]} >
+    RESET COLOR
+  </Text>
+</TouchableOpacity>
+
 
 
       
@@ -1047,7 +1075,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DDDDDD',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
+    marginLeft: 3,
   },
   squareText: {
     fontWeight: 'bold',

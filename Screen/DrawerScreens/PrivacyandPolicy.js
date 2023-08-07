@@ -9,11 +9,12 @@ import {
   TextInput
 } from "react-native";
 
-const PrivacyandPolicy = () => {
+const PrivacyandPolicy = ({navigation}) => {
   return (
     <View style={{ flex: 1 }}>
     <View style={{ height: 106, backgroundColor: "#2155CD", flexDirection: 'row', alignItems: 'center', }}>
-        <TouchableOpacity><Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
+    <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+        <Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
         <Text style={styles.text}>Privacy Policy</Text>
       </View>
     <View style={{ flex: 1 }}>
@@ -45,7 +46,7 @@ const PrivacyandPolicy = () => {
             <Text style={{marginTop:8,color:'#888888',marginHorizontal:16}}>If you have any questions or concerns about our privacy policy or how we handle your personal information, please contact us at <TouchableOpacity><Text style={{color:'#2155CD'}}>ezinvoicegenerator@gmail.com
             </Text></TouchableOpacity></Text>
 
-            <Text style={{marginTop:24,fontSize:16, fontWeight:'600',textAlign:'center'}}>Thanks For Visiting Our Site{"\n"}<Text style={{textAlign:'center',fontSize:16, fontWeight:'600',color:'#2155CD'}}>Have a nice day !</Text></Text>
+            <Text style={{marginBottom:24,marginTop:24,fontSize:16, fontWeight:'600',textAlign:'center'}}>Thanks For Visiting Our Site{"\n"}<Text style={{textAlign:'center',fontSize:16, fontWeight:'600',color:'#2155CD'}}>Have a nice day !</Text></Text>
         </ScrollView>
         </View>
     </View>

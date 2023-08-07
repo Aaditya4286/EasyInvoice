@@ -11,7 +11,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import { Dropdown } from 'react-native-element-dropdown';
 
-const Settings = () => {
+const Settings = ({navigation}) => {
   const handleSelectFile = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -68,7 +68,7 @@ const Settings = () => {
           alignItems: 'center',
         }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate("Home")}>  
           <Image
             style={{ height: 12, width: 15, marginLeft: 18, marginTop: 20 }}
             source={require('../DrawerScreens/mode.png')}
@@ -299,7 +299,8 @@ const Settings = () => {
           height: 48,
           borderRadius: 6,
           marginHorizontal: 20,
-          marginTop: 39
+          marginTop: 39,
+          marginBottom:24
         },
         buttonText: {
           alignSelf: 'center',

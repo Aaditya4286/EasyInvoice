@@ -9,11 +9,12 @@ import {
   TextInput
 } from "react-native";
 
-const PrivacyandPolicy = () => {
+const PrivacyandPolicy = ({navigation}) => {
   return (
     <View style={{ flex: 1 }}>
     <View style={{ height: 106, backgroundColor: "#2155CD", flexDirection: 'row', alignItems: 'center', }}>
-        <TouchableOpacity><Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
+    <TouchableOpacity onPress={()=>navigation.navigate("Home")}>          
+    <Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
         <Text style={styles.text}>Terms and Conditions</Text>
       </View>
     <View style={{ flex: 1 }}>
@@ -47,7 +48,7 @@ const PrivacyandPolicy = () => {
             <Text style={{marginTop:24,fontSize:24, fontWeight:'bold',marginLeft:16}}>Governing Law and Jurisdiction</Text>
             <Text style={{marginTop:8,color:'#888888',marginHorizontal:16}}>These terms and conditions shall be governed by and construed in accordance with the laws of the state in which our company is located. Any dispute arising from these terms and conditions shall be resolved exclusively in the courts located in that state.</Text>
 
-            <Text style={{marginTop:24,fontSize:16, fontWeight:'600',textAlign:'center'}}>Thanks For Visiting Our Site{"\n"}<Text style={{textAlign:'center',fontSize:16, fontWeight:'600',color:'#2155CD'}}>Have a nice day !</Text></Text>
+            <Text style={{marginTop:24,marginBottom:24,fontSize:16, fontWeight:'600',textAlign:'center'}}>Thanks For Visiting Our Site{"\n"}<Text style={{textAlign:'center',fontSize:16, fontWeight:'600',color:'#2155CD'}}>Have a nice day !</Text></Text>
 
         </ScrollView>
         </View>

@@ -67,44 +67,72 @@ const data = [
   },
 ];
 
-const InvoiceFeatures = () => {
+const InvoiceFeatures = ({navigation}) => {
+  const onPress=() =>{
+    navigation.navigate('Home')
+  }
   return (
     <View style={{ flex: 1 }}>
       <View style={{ height: 106, backgroundColor: "#2155CD", flexDirection: 'row', alignItems: 'center', }}>
-        <TouchableOpacity><Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
+          <Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
         <Text style={styles.text}>Invoice Features</Text>
       </View>
-    <View style={{flex:1}}>
-      <ScrollView>
-      <View>
-            {
-            data.map((item) => {
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View>
+            {data.map((item) => {
               return (
-                 <View key={item.id}>
-                  <Image style={styles.itemImage} source={item.image} />
-                  <Text style={styles.itemText}>{item.name}</Text>
-                  <Text style={styles.itemText2}>{item.value}</Text>
+                <View style={styles.itemContainer} key={item.id}>
+                  <View style={styles.whiteBox}>
+                    <Image style={styles.itemImage} source={item.image} />
+                    <Text style={styles.itemText}>{item.name}</Text>
+                    <Text style={styles.itemText2}>{item.value}</Text>
+                  </View>
                 </View>
-                 );
-                })}
-               </View>
-      </ScrollView>
+              );
+            })}
+          </View>
+        </ScrollView>
+      </View>
     </View>
-    </View>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
+  itemContainer: {
+    backgroundColor: "#F5F5F5",
+    height: 157,
+    width: 343,
+    alignSelf: "center",
+    marginBottom: 15, 
+  },
+  whiteBox: {
+    backgroundColor: "white", 
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 24,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+    marginTop:16
+  },
+
   itemImage: {
-    marginLeft: 16,
-    marginTop: 24,
-    width: 50,
-    height: 50,
+    marginTop: 5,
+    width: 45,
+    height: 45,
+    resizeMode:'contain',
     alignSelf:'center'
   },
   itemText: {
     fontSize: 16,
     fontWeight: "bold",
-        top: 12,
+    top: 12,
     textAlign:'center'
   },
   itemText2: {

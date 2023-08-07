@@ -18,6 +18,7 @@ const Intro = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, flexDirection: 'column' }}>
+      
       <Swiper
         ref={swiperRef}
         style={styles.wrapper}

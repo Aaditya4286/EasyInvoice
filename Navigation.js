@@ -28,11 +28,13 @@ import ChangePassword from './Screen/ChangePassword';
 import SignUp from './Screen/SignUp';
 import Account from './Screen/TabScreens/Account';
 import CreateInvoice from './Screen/TabScreens/CreateInvoice';
+import SendInvoice from './Screen/TopScreens/SendInvoice'
 
 const Navigation = () => {
   const Drawer = createDrawerNavigator();
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
+  // const TopScreens = createTopNavigator();
 
   const Drawers = () => {
     const DrawerContent = ({ navigation }) => {
@@ -136,12 +138,16 @@ const Navigation = () => {
       </Tab.Navigator>
     );
   };
+const TopTabs = () => {
+  return
 
+}
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="AuthStack" component={AuthStack} />
         <Stack.Screen name="Drawers" component={Drawers} />
+        <Stack.Screen name="SendInvoice" component={SendInvoice} />
         
       </Stack.Navigator>
     </NavigationContainer>

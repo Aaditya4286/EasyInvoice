@@ -9,7 +9,7 @@ import {
   TextInput
 } from "react-native";
 
-const ContactUs = () => {
+const ContactUs = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('')
@@ -24,7 +24,7 @@ const ContactUs = () => {
           alignItems: 'center',
         }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
           <Image
             style={{ height: 12, width: 15, marginLeft: 18, marginTop: 20 }}
             source={require('../DrawerScreens/mode.png')}

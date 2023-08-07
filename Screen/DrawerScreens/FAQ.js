@@ -72,7 +72,7 @@ const data = [
       "Yes, of course you can change the currency. By Default there you get one currency but if you want to change the currency then select the option “Currency Symbol” at top-right side from there you can change.",
   },
 ];
-const FAQ = () => {
+const FAQ = ({navigation}) => {
   const [expandedItems, setExpandedItems] = useState([]);
 
   const toggleExpand = (id) => {
@@ -93,7 +93,7 @@ const FAQ = () => {
           alignItems: 'center',
         }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
           <Image
             style={{ height: 12, width: 15, marginLeft: 18, marginTop: 20 }}
             source={require('../DrawerScreens/mode.png')}
@@ -120,8 +120,8 @@ const FAQ = () => {
                       style={styles.itemImage}
                       source={
                         isExpanded
-                          ? require('../DrawerScreens/plus.png')
-                          : require('../DrawerScreens/minus.png')
+                          ? require('../DrawerScreens/minus.png')
+                          : require('../DrawerScreens/plus.png')
                       }
                     />
                   </TouchableOpacity>
@@ -153,10 +153,11 @@ const styles = StyleSheet.create({
     alignSelf:'flex-end'
   },
   itemContainer: {
-    marginTop:32,
+    marginTop:22,
     backgroundColor:'white',
     width:343,
-    alignSelf:'center'
+    alignSelf:'center',
+    marginBottom:24
   },
   itemText: {
     fontSize: 18,
