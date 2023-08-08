@@ -830,9 +830,6 @@ const CreateInvoice = ({ navigation }) => {
 </TouchableOpacity>
 
 
-
-      
-
         </View>
       </ScrollView>
     </View>
