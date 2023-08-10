@@ -12,7 +12,7 @@ import Topnavigaton from './Topnavigaton'
 
 const SendInvoice = ({navigation}) => {
   return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 ,backgroundColor:'white'}}>
       <View
         style={{
           height: 106,

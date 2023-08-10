@@ -782,8 +782,8 @@ const CreateInvoice = ({ navigation }) => {
         <Text style={styles.buttonText2}>DOWNLOAD INVOICE</Text>
         </View>
       </TouchableOpacity>
-
-      <TouchableOpacity style={styles.buttonContainer}>
+ 
+      <TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate("History")}>
         <View style={styles.signupButton}>
           <View style={{flexDirection: 'row'}}>
 

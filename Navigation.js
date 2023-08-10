@@ -29,12 +29,14 @@ import SignUp from './Screen/SignUp';
 import Account from './Screen/TabScreens/Account';
 import CreateInvoice from './Screen/TabScreens/CreateInvoice';
 import SendInvoice from './Screen/TopScreens/SendInvoice'
+import History from './Screen/TopScreens/History';
+import SendModal from './Screen/TopScreens/SendModal';
+import Pdf from './Screen/TopScreens/Pdf';
 
 const Navigation = () => {
   const Drawer = createDrawerNavigator();
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
-  // const TopScreens = createTopNavigator();
 
   const Drawers = () => {
     const DrawerContent = ({ navigation }) => {
@@ -138,17 +140,16 @@ const Navigation = () => {
       </Tab.Navigator>
     );
   };
-const TopTabs = () => {
-  return
 
-}
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="AuthStack" component={AuthStack} />
         <Stack.Screen name="Drawers" component={Drawers} />
         <Stack.Screen name="SendInvoice" component={SendInvoice} />
-        
+        <Stack.Screen name="History" component={History} />
+        <Stack.Screen name="SendModal" component={SendModal} />
+        <Stack.Screen name="Pdf" component={Pdf} />
       </Stack.Navigator>
     </NavigationContainer>
   );
