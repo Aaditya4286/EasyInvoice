@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-const Login = () => {
+import { NavigationActions } from 'react-navigation';
+
+const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [securePassword, setSecurePassword] = useState(true);
-  const navigation = useNavigation();
-
-
+  // const navigation = useNavigation();
+ 
   const handleLogin = () => {
     fetch('https://invoice-generator-backend-testing.onrender.com/api/auth/signin',
      {

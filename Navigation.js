@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -6,6 +6,8 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import Modal from 'react-native-modal';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -32,49 +34,16 @@ import SendInvoice from './Screen/TopScreens/SendInvoice'
 import History from './Screen/TopScreens/History';
 import SendModal from './Screen/TopScreens/SendModal';
 import Pdf from './Screen/TopScreens/Pdf';
+import DrawerContent from './Screen/DrawerScreens/DrawerContent';
 
 const Navigation = () => {
+  const [logoutModalVisible, setLogoutModalVisible] = useState(false); // Step 2
   const Drawer = createDrawerNavigator();
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
-
+ 
   const Drawers = () => {
-    const DrawerContent = ({ navigation }) => {
-      const navigateToScreen = (screenName) => {
-        navigation.navigate(screenName);
-      };
-
-      const renderDrawerItem = (label, screenName) => {
-        return (
-          <TouchableOpacity
-            style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 8 }}
-            onPress={() => navigateToScreen(screenName)}
-          >
-            <Text style={styles.drawerItemText}>{label}</Text>
-            <TouchableOpacity onPress={() => navigateToScreen(screenName)}>
-              <Image source={require('./assets/arrow.png')} style={{ height: 18, width: 18 }} />
-            </TouchableOpacity>
-          </TouchableOpacity>
-        );
-      };
-
-      return (
-        <View style={{ flex: 1 }}>
-          <DrawerContentScrollView>
-            {renderDrawerItem('Dashboard', 'Dashboard')}
-            {renderDrawerItem('Invoice Guide', 'InvoiceGuide')}
-            {renderDrawerItem('Invoice Features', 'InvoiceFeatures')}
-            {renderDrawerItem('About Us', 'AboutUs')}
-            {renderDrawerItem('Contact Us', 'ContactUs')}
-            {renderDrawerItem('Frequently Asked Questions', 'FAQ')}
-            {renderDrawerItem('Terms & Conditions', 'TandC')}
-            {renderDrawerItem('Privacy Policy', 'PrivacyandPolicy')}
-            {renderDrawerItem('Settings', 'Settings')}
-            {renderDrawerItem('Log Out', 'Logout')}
-          </DrawerContentScrollView>
-        </View>
-      );
-    };
+   
 
     return (
       <Drawer.Navigator

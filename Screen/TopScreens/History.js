@@ -8,8 +8,12 @@ import {
   ScrollView,
   TextInput
 } from "react-native";
+import Modal from 'react-native-modal';
+import Pdf from './Pdf';
 const History = ({navigation}) => {
   const [search, setSearch] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
+
   return ( 
         <View style={{ flex: 1 ,backgroundColor:'white'}}>
         <View
@@ -48,7 +52,8 @@ const History = ({navigation}) => {
         </TouchableOpacity>
       </View>
 <View style={{flexDirection:'row',justifyContent:'flex-end',marginRight:16}}>
-      <TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate("Pdf")}>
+    
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => setModalVisible(true)}>
         <View style={styles.signupButton}>
           <View style={{flexDirection: 'row'}}>
         <Image
@@ -59,7 +64,16 @@ const History = ({navigation}) => {
           </View>
         </View>
       </TouchableOpacity>
-
+      <Modal
+  isVisible={isModalVisible}
+  animationIn="fadeIn"
+  animationOut="fadeOut"
+  onBackdropPress={() => setModalVisible(false)}
+>
+  <View style={styles.modalContainer}>
+    <Pdf />
+  </View>
+</Modal>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText2}>NEW INVOICE</Text>
       </TouchableOpacity>
@@ -189,6 +203,11 @@ const History = ({navigation}) => {
   )
 }
 const styles = StyleSheet.create({
+  modalContainer: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    paddingBottom: 16,
+  },
   button: {
     backgroundColor: '#2155CD',
     width: 130,

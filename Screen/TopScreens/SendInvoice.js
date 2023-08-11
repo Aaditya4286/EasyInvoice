@@ -5,8 +5,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ScrollView,
-  TextInput
 } from "react-native";
 import Topnavigaton from './Topnavigaton'
 
