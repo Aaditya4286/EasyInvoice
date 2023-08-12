@@ -2,9 +2,9 @@ import { View, Text,StyleSheet,TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 
-const Logout = ({setLogoutModal,}) => {
+const Logout = ({setLogoutModal}) => {
   const navigation = useNavigation();
-
+ 
   return (
     <View>
       <Text style={styles.text} >Are you sure you want to log out?</Text>

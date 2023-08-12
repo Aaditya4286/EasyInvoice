@@ -7,7 +7,6 @@ const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [securePassword, setSecurePassword] = useState(true);
-  // const navigation = useNavigation();
  
   const handleLogin = () => {
     fetch('https://invoice-generator-backend-testing.onrender.com/api/auth/signin',

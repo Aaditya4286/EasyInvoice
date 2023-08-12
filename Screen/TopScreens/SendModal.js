@@ -1,11 +1,19 @@
-import { View, Text, StyleSheet,TextInput,TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+// import { useNavigation } from '@react-navigation/native';
 
-const SendModal = () => {
-    const [subject, setSubject] = useState('');
+const SendModal = ({ setLogoutModal }) => {
+  // const navigation = useNavigation();
+
+  const [subject, setSubject] = useState('');
   const [email, setEmail] = useState('');
-  const [invoice, setInvoice] = useState('')
-  const [notes, setNotes] = useState('')
+  const [invoice, setInvoice] = useState('');
+  const [notes, setNotes] = useState('');
+
+  const handleCancel = () => {
+    setLogoutModal(false); 
+  }
+
   return (
     <View>
       <Text style={{fontSize:24,fontWeight:'bold',textAlign:'center',marginTop:32}}>Send Invoices</Text>
@@ -56,18 +64,22 @@ const SendModal = () => {
             placeholder="Any Specific Custom Notes..."
             multiline={true} 
           />
-        </View>
+        </View><TouchableOpacity style={styles.buttonContainer} onPress={handleCancel}>
+  <View style={styles.signupButton}>
+    <Text style={styles.signupText1}>CANCEL</Text>
+  </View>
+</TouchableOpacity>
       </View>
-    
+     
 <Text style={{color:'#2155CD',fontSize:12,marginHorizontal:18,marginLeft:22,marginTop:12}}>Invoices must be formatted using UBL (Universal Business Language). If you need a tool to help you generate UBL invoices try easyinvoice.com</Text>
 
 
 <View style={{flexDirection:'row',justifyContent:'flex-end',marginRight:16}}>
-      <TouchableOpacity style={styles.buttonContainer}>
-        <View style={styles.signupButton}>
-          <Text style={styles.signupText1}>CANCEL</Text>
-        </View>
-      </TouchableOpacity>
+<TouchableOpacity style={styles.buttonContainer} onPress={handleCancel}>
+  <View style={styles.signupButton}>
+    <Text style={styles.signupText1}>CANCEL</Text>
+  </View>
+</TouchableOpacity>
 
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText2}>SEND</Text>

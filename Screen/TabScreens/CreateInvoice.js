@@ -59,7 +59,6 @@ const CreateInvoice = ({ navigation }) => {
   const [qtytext, setQtyText] = useState('QTY');
   const [ratetext, setRateText] = useState('RATE');
   const [balancetext, setBalanceText] = useState('BALANCE');
-  const [name, setName] = useState('');
   const [rate, setRate] = useState('');
   const [amounttext, setAmountText] = useState('AMOUNT');
   const [notestext, setNotesText] = useState('NOTES');
@@ -74,8 +73,8 @@ const CreateInvoice = ({ navigation }) => {
   const [notes, setNotes] = useState('');
   const [terms, setTerms] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
-  const [selectedThemeColor, setSelectedThemeColor] = useState('');
-  const [selectedTextColor, setSelectedTextColor] = useState('');
+  const [selectedThemeColor, setSelectedThemeColor] = useState('rgb(244, 239, 239)');
+  const [selectedTextColor, setSelectedTextColor] = useState('black');
   const [totalAmount, setTotalAmount] = useState(0);
   const defaultThemeColor = 'white'; 
   const defaultTextColor = 'black'; 
@@ -142,7 +141,7 @@ const CreateInvoice = ({ navigation }) => {
 
   const colors = [
     'black',
-    'grey',
+    'rgb(244, 239, 239)',
     'powderblue',
     'blue',
     'yellow',
@@ -248,8 +247,8 @@ const CreateInvoice = ({ navigation }) => {
   
 
   const handleResetColors = () => {
-    setSelectedThemeColor(defaultThemeColor);
-    setSelectedTextColor(defaultTextColor);
+    setSelectedThemeColor('rgb(244, 239, 239)');
+    setSelectedTextColor('black');
   };
   return (
     <View style={{ flex: 1,backgroundColor:"white"}}>
@@ -305,7 +304,6 @@ const CreateInvoice = ({ navigation }) => {
               value={invoiceTo}
               onChangeText={(k) => setInvoiceTo(k)}
             />
-            {/* {!invoiceTo && <Text style={styles.sign}>*</Text>} */}
           </View>
 
           <View>
@@ -327,7 +325,6 @@ const CreateInvoice = ({ navigation }) => {
               onChangeText={(s) => setShipTo(s)}
             />
           </View>
-
           <View>
           <TextInput 
              style={styles.input}
@@ -471,7 +468,7 @@ const CreateInvoice = ({ navigation }) => {
             />
           </View>
           {invoiceItems.map((item, index) => (
-  <View key={index}>
+  <View style={{ backgroundColor: selectedThemeColor }} key={index}>
     <View style={styles.itemRow}>
       <View>
         <TextInput
@@ -792,42 +789,55 @@ const CreateInvoice = ({ navigation }) => {
         </View>
       </TouchableOpacity>
 
-<Text style={styles.label}>THEME COLOR</Text>
+      <Text style={styles.label}>THEME COLOR</Text>
+      <View style={styles.colorBox}>
+        <View style={styles.colorRow}>
+          {colors.map((color, index) => (
+            <TouchableOpacity
+              key={index}
+              style={{ width: 32, height: 32, backgroundColor: color }}
+              onPress={() => setSelectedThemeColor(color)}
+            />
+          ))}
+          <View
+            style={{
+              width: 70,
+              height: 32,
+              backgroundColor: selectedThemeColor,
+            }}
+          />
+        </View>
+      </View>
 
-<View style={styles.colorBox}>
-  <View style={styles.colorRow}>
-    {colors.map((color, index) => (
+      <Text style={styles.label}>TEXT COLOR</Text>
+      <View style={styles.colorBox}>
+        <View style={styles.colorRow}>
+          {colors.map((color, index) => (
+            <TouchableOpacity
+              key={index}
+              style={{ width: 32, height: 32, backgroundColor: color }}
+              onPress={() => setSelectedTextColor(color)}
+            />
+          ))}
+          <View
+            style={{
+              width: 70,
+              height: 32,
+              backgroundColor: selectedTextColor,
+            }}
+          />
+        </View>
+      </View>
+
+
       <TouchableOpacity
-        key={index}
-        style={{ width: 32, height: 32, backgroundColor: color }}
-        onPress={() => setSelectedThemeColor(color)}
-      />
-    ))}
-    <View style={{ width: 70, height: 32, backgroundColor: selectedThemeColor }} />
-  </View>
-</View>
-
-<Text style={styles.label}>TEXT COLOR</Text>
-
-<View style={styles.colorBox}>
-  <View style={styles.colorRow}>
-    {colors.map((color, index) => (
-      <TouchableOpacity
-        key={index}
-        style={{ width: 32, height: 32, backgroundColor: color }}
-        onPress={() => setSelectedTextColor(color)}
-      />
-    ))}
-    <View style={{ width: 70, height: 32, backgroundColor: selectedTextColor }} />
-  </View>
-</View>
-
-
-<TouchableOpacity style={[styles.button]} onPress={handleResetColors}>
-  <Text style={[styles.buttonText, { color: 'white' }]} >
-    RESET COLOR
-  </Text>
-</TouchableOpacity>
+        style={[styles.button]}
+        onPress={handleResetColors}
+      >
+        <Text style={[styles.buttonText, { color: 'white' }]}>
+          RESET COLOR
+        </Text>
+      </TouchableOpacity>
 
 
         </View>
@@ -835,7 +845,6 @@ const CreateInvoice = ({ navigation }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   colorBox: {
     borderColor:"grey",

@@ -140,5 +140,5 @@ const styles = StyleSheet.create({
     marginBottom: 25
   }
 });
-
+ 
 export default Navigation;

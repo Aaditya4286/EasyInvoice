@@ -194,7 +194,7 @@ const CreatedScreen = () => {
   onBackdropPress={() => setModalVisible(false)}
 >
   <View style={styles.modalContainer}>
-    <SendModal />
+    <SendModal setLogoutModal={setModalVisible}/>
   </View>
 </Modal>
 
@@ -391,7 +391,9 @@ const SentScreen = () => {
   onBackdropPress={() => setModalVisible(false)}
 >
   <View style={styles.modalContainer}>
-    <SendModal />
+    {/* <SendModal /> */}
+    <SendModal setLogoutModal={setModalVisible}/>
+
   </View>
 </Modal>
       </ScrollView>
