@@ -80,6 +80,18 @@ const CreateInvoice = ({ navigation }) => {
   const defaultTextColor = 'black'; 
   const [invoiceItems, setInvoiceItems] = useState([]);
 
+  const [counter, setCounter] = useState(0);
+        
+  const incrementCounter = () => {
+    setCounter(counter + 1);
+  };
+         
+  const decrementCounter = () => {
+   if (counter !== 0) {
+       setCounter(counter - 1);
+    }
+  };
+
   const handleAddNewInvoiceItem = () => {
     const updatedItems = [...invoiceItems];
     updatedItems.push({
@@ -335,34 +347,30 @@ const CreateInvoice = ({ navigation }) => {
              color={selectedTextColor}
             />
           </View>
-          <View>
-          <TextInput 
-             style={styles.label}
-             placeholder="INVOICE ID"
-             placeholderTextColor={selectedTextColor}
-             value={invoiceidtext}
-             onChangeText={(w) => setInvoiceIdText(w)}
-             color={selectedTextColor}
-            />
-          </View>
+         
           <View style={[styles.dottedLineBox, { height: 50 }, { marginTop: 6 }]}>
             <View style={styles.dropdownContainer}>
               <View style={[styles.squareView,{backgroundColor: selectedThemeColor}]}>
                 <Text style={[styles.squareText,{color:selectedTextColor}]}>#</Text>
               </View>
-              <Dropdown
-                style={styles.dropdown}
-                data={data}
-                maxHeight={300}
-                labelField="label"
-                valueField="value"
-                placeholder="1"
-                value={arrowValue}
-                dropdownPosition='top'
-                onChange={(item) => {
-                  setArrowValue(item.value);
-                }}
-              />
+              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center',justifyContent:'space-between' }}>
+    <Text style={{marginLeft:10}}>{counter}</Text>
+    <View style={{flexDirection:'column'}}>
+    <TouchableOpacity onPress={incrementCounter}>
+      <Image
+        style={{height:10,width:10,marginRight:10,marginBottom:5}}
+        source={require('../TabScreens/up.png')}
+      />
+    </TouchableOpacity>
+    {/* <Text style={styles.quantityText}>{counter}</Text> */}
+    <TouchableOpacity onPress={decrementCounter}>
+      <Image
+        style={{height:10,width:10,marginRight:10}}
+        source={require('../TabScreens/down.png')}
+      />
+    </TouchableOpacity>
+    </View>
+  </View>
             </View>
           </View>
           <View>
@@ -468,7 +476,7 @@ const CreateInvoice = ({ navigation }) => {
             />
           </View>
           {invoiceItems.map((item, index) => (
-  <View style={{ backgroundColor: selectedThemeColor }} key={index}>
+  <View style={{ backgroundColor: selectedThemeColor,marginHorizontal:-16,paddingHorizontal:16,paddingBottom:16 }} key={index}>
     <View style={styles.itemRow}>
       <View>
         <TextInput
@@ -514,29 +522,29 @@ const CreateInvoice = ({ navigation }) => {
           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:20}}>
             <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
             <View>
-          <TextInput 
-             style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
-             placeholder="QTY"
-             placeholderTextColor={selectedTextColor}
-             value={qtytext}
-             onChangeText={(t) => setQtyText(t)}
-             color={selectedTextColor}
-            />
-          </View>
-            {/* <Text style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}>QTY</Text> */}
-            <Dropdown
-                style={{height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14,borderRadius: 6,}}
-                data={quantityData}
-                maxHeight={300}
-                labelField="label"
-                valueField="value"
-                placeholder="1"
-                value={arrowValue}
-                dropdownPosition='top'
-                onChange={(item) => {
-                setArrowValue(item.value);
-                }}
-              />
+  <Text style={{ fontSize: 12, fontWeight: 'bold' }}>QTY</Text>
+</View>
+<View  style={{height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14,borderRadius: 6}}>
+<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center',justifyContent:'space-between' }}>
+    <Text style={styles.quantityText}>{counter}</Text>
+    <View style={{flexDirection:'column'}}>
+    <TouchableOpacity onPress={incrementCounter}>
+      <Image
+        style={{height:8,width:10,marginRight:10,marginBottom:5}}
+        source={require('../TabScreens/up.png')}
+      />
+    </TouchableOpacity>
+    {/* <Text style={styles.quantityText}>{counter}</Text> */}
+    <TouchableOpacity onPress={decrementCounter}>
+      <Image
+        style={{height:8,width:10,marginRight:10}}
+        source={require('../TabScreens/down.png')}
+      />
+    </TouchableOpacity>
+    </View>
+  </View>
+  </View>
+
             </View>
             <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
             <View>
@@ -584,8 +592,8 @@ const CreateInvoice = ({ navigation }) => {
             </View>
           </View>
         </TouchableOpacity>
-      <View style={{backgroundColor: selectedThemeColor}}>
-      <Text style={[styles.input,{color:selectedTextColor}]}>Invoice Summary</Text>
+      <View style={{backgroundColor: selectedThemeColor,marginHorizontal:-16}}>
+      <Text style={[styles.input,{color:selectedTextColor},{paddingLeft:16}]}>Invoice Summary</Text>
       </View>
       <View>
           <TextInput 
@@ -682,10 +690,10 @@ const CreateInvoice = ({ navigation }) => {
             >{rate*arrowValue}</Text>
           </View>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: selectedThemeColor }}>
-          <View>
+          <View style={{ marginHorizontal:-16,height:48,flexDirection: 'row', justifyContent: 'space-between', backgroundColor: selectedThemeColor }}>
+          <View style={{marginTop:16,paddingHorizontal:16}}>
           <TextInput 
-             style={{ fontSize: 12, fontWeight: 'bold' }}
+             style={{ fontSize: 12, fontWeight: 'bold', }}
              placeholder="BALANCE"
              placeholderTextColor={selectedTextColor}
              value={balancetext}
@@ -693,7 +701,7 @@ const CreateInvoice = ({ navigation }) => {
              color={selectedTextColor}
             />
           </View>
-        <Text>${totalAmount.toFixed(2)}</Text>
+        <Text style={{marginTop:16,marginRight:16}}>${totalAmount.toFixed(2)}</Text>
       </View>
 
       
@@ -1036,10 +1044,6 @@ const styles = StyleSheet.create({
   underlineText: {
     textDecorationLine: "underline",
   },
-  // dashedTextInput: {
-  //   // marginLeft: 16,
-  //   // justifyContent:"space-evenly"
-  // },
   sign: {
     color: 'red',
   },
@@ -1047,13 +1051,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 12,
     fontWeight: 'bold',
-    marginLeft: 21,
+    marginLeft: 16,
   },
   input: {
     fontSize: 24,
     fontWeight: "bold",
     marginLeft: 16,
-    marginTop: 32,
+    marginVertical: 16,
   },
   input1: {
     fontSize: 12,
@@ -1077,11 +1081,13 @@ const styles = StyleSheet.create({
   },
   squareView: {
     width: 48,
-    height: 48,
+    height: 50,
     backgroundColor: '#DDDDDD',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 3,
+    // marginRight: -2,
+    borderTopLeftRadius:6,
+    borderBottomLeftRadius:6
   },
   squareText: {
     fontWeight: 'bold',
