@@ -37,7 +37,6 @@ import Pdf from './Screen/TopScreens/Pdf';
 import DrawerContent from './Screen/DrawerScreens/DrawerContent';
 
 const Navigation = () => {
-  const [logoutModalVisible, setLogoutModalVisible] = useState(false); // Step 2
   const Drawer = createDrawerNavigator();
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();

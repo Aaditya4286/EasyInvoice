@@ -1,12 +1,16 @@
 import { View, Text,Image,TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
+import { useNavigation } from '@react-navigation/native';
 
-const Pdf = () => {
+const Pdf = (props) => {
+   const {onPress}=props;
+  
   return (
     <View>
-    <View style={{borderWidth:1,borderColor:'#DDDDDD',flexDirection:'row',justifyContent:'space-between',alignItems:'center',height:70}}>  
+    <View style={{borderTopLeftRadius:8,borderTopRightRadius:8,borderWidth:1,borderColor:'#DDDDDD',flexDirection:'row',justifyContent:'space-between',alignItems:'center',height:70}}>  
       <Text style={{fontSize:16,fontWeight:'600',marginLeft:16}}>What file format do you want?</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}
+      >
       <Image style={{height:14,width:14,marginRight:16}} 
              source={require("../TopScreens/cross.png")} />
    </TouchableOpacity>

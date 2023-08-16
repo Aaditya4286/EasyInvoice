@@ -13,7 +13,11 @@ import Pdf from './Pdf';
 const History = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
-
+  const dataToSend = isModalVisible;
+  const dataToSend1 = setModalVisible;
+  const closeModal=()=>{
+    setModalVisible(false)
+  }
   return ( 
         <View style={{ flex: 1 ,backgroundColor:'white'}}>
         <View
@@ -69,9 +73,11 @@ const History = ({navigation}) => {
   animationIn="fadeIn"
   animationOut="fadeOut"
   onBackdropPress={() => setModalVisible(false)}
+  setModalVisible={setModalVisible}
+  // onPress={()=>setModalVisible(true)}
 >
   <View style={styles.modalContainer}>
-    <Pdf />
+    <Pdf onPress={closeModal}/>
   </View>
 </Modal>
       <TouchableOpacity style={styles.button}>
