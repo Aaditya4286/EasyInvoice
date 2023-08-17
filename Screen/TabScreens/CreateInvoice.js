@@ -522,7 +522,7 @@ const CreateInvoice = ({ navigation }) => {
           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:20}}>
             <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
             <View>
-  <Text style={{ fontSize: 12, fontWeight: 'bold' }}>QTY</Text>
+  <Text style={{ fontSize: 12, fontWeight: 'bold',marginLeft:10 }}>QTY</Text>
 </View>
 <View  style={{height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14,borderRadius: 6}}>
 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center',justifyContent:'space-between' }}>
@@ -857,10 +857,10 @@ const styles = StyleSheet.create({
   colorBox: {
     borderColor:"grey",
     borderWidth:1,
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 16,
-    elevation: 3,
+    padding: 8,
+    // borderRadius: 8,
+    marginBottom: 12,
+    // elevation: 3,
   },
   colorRow: {
     flexDirection: 'row',
@@ -1052,6 +1052,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     marginLeft: 16,
+    marginBottom:6
   },
   input: {
     fontSize: 24,

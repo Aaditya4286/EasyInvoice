@@ -26,7 +26,7 @@ import TandC from './Screen/DrawerScreens/TandC';
 import Intro from './Screen/Intro';
 import Login from './Screen/Login';
 import ForgotPassword from './Screen/ForgotPassword';
-import ChangePassword from './Screen/ChangePassword';
+// import ChangePassword from './Screen/ChangePassword';
 import SignUp from './Screen/SignUp';
 import Account from './Screen/TabScreens/Account';
 import CreateInvoice from './Screen/TabScreens/CreateInvoice';
@@ -74,7 +74,7 @@ const Navigation = () => {
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-        <Stack.Screen name="ChangePassword" component={ChangePassword} />
+        {/* <Stack.Screen name="ChangePassword" component={ChangePassword} /> */}
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Account" component={Account} />
       </Stack.Navigator>

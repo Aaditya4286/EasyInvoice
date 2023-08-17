@@ -1,19 +1,60 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
   Text,
   Image,
   TouchableOpacity,
+  TextInput,
+  Alert,
   ScrollView,
-  TextInput
-} from "react-native";
+} from 'react-native';
 
-const ContactUs = ({navigation}) => {
+const ContactUs = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState('')
-  const [message, setMessage] = useState('')
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleLogin = () => {
+    if (!name || !email || !subject || !message) {
+      Alert.alert('Error', 'Please fill in all details');
+      return;
+    }
+
+    fetch('https://invoice-generator-backend-testing.onrender.com/api/util/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        subject: subject,
+        message: message,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('API Response:', data);
+      if (data.success) {
+        console.log('Success: Navigating to HomeTabs');
+        Alert.alert('Success', 'Navigating to HomeTabs');
+        navigation.navigate('HomeTabs', {
+          message: 'Your response has been recorded',
+        });
+      } else {
+        console.log('Error: Enter correct details');
+        Alert.alert('Error', 'Enter correct details');
+      }
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+      Alert.alert('Error', 'An error occurred while sending the request.');
+      console.error(error);
+    });
+    
+  };
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -32,7 +73,7 @@ const ContactUs = ({navigation}) => {
         </TouchableOpacity>
         <Text style={styles.text}>Contact Us</Text>
       </View>
-
+<ScrollView>
 <Text style={styles.text2}>Please use this form to contact us and we willget back to you as soon as possible</Text>
 <View style={styles.inputContainer}>
     <Text style={styles.label}>NAME</Text>
@@ -83,11 +124,11 @@ const ContactUs = ({navigation}) => {
       </View>
 
 
-      <TouchableOpacity style={styles.button} >
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>SUBMIT</Text>
       </TouchableOpacity>
 
-
+      </ScrollView>
     </View>
   )
 }
@@ -150,3 +191,4 @@ input: {
 },
 })
 export default ContactUs
+
