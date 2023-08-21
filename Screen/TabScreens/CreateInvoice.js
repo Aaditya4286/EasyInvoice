@@ -78,30 +78,42 @@ const CreateInvoice = ({ navigation }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const defaultThemeColor = 'white'; 
   const defaultTextColor = 'black'; 
-  const [invoiceItems, setInvoiceItems] = useState([]);
-
   const [counter, setCounter] = useState(0);
-        
-  const incrementCounter = () => {
-    setCounter(counter + 1);
-  };
-         
-  const decrementCounter = () => {
-   if (counter !== 0) {
-       setCounter(counter - 1);
-    }
-  };
 
-  const handleAddNewInvoiceItem = () => {
-    const updatedItems = [...invoiceItems];
-    updatedItems.push({
+  const [invoiceItems, setInvoiceItems] = useState([
+    {
       item: '',
       qty: '1',
       rate: '',
       amount: '0',
-    });
+      counter: 0,
+    },
+  ]);
+  const incrementCounter = (itemIndex) => {
+    const updatedItems = [...invoiceItems];
+    updatedItems[itemIndex].counter += 1;
     setInvoiceItems(updatedItems);
   };
+  
+  const decrementCounter = (itemIndex) => {
+    if (invoiceItems[itemIndex].counter !== 0) {
+      const updatedItems = [...invoiceItems];
+      updatedItems[itemIndex].counter -= 1;
+      setInvoiceItems(updatedItems);
+    }
+  };
+  
+  const handleAddNewInvoiceItem = () => {
+    const newItem = {
+      item: '',
+      qty: '1',
+      rate: '',
+      amount: '0',
+      counter: 0,
+    };
+    setInvoiceItems([...invoiceItems, newItem]);
+  };
+  
   const handleInvoiceItemChange = (index, field, value) => {
     const updatedItems = [...invoiceItems];
     updatedItems[index][field] = value;
@@ -257,7 +269,6 @@ const CreateInvoice = ({ navigation }) => {
     setInvoiceItems(updatedItems);
   };
   
-
   const handleResetColors = () => {
     setSelectedThemeColor('rgb(244, 239, 239)');
     setSelectedTextColor('black');
@@ -522,25 +533,31 @@ const CreateInvoice = ({ navigation }) => {
           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:20}}>
             <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>
             <View>
-  <Text style={{ fontSize: 12, fontWeight: 'bold',marginLeft:10 }}>QTY</Text>
+            <TextInput 
+             style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
+             placeholder="QTY"
+             placeholderTextColor={selectedTextColor}
+             value={qtytext}
+             onChangeText={(p) => setQtyText(p)}
+             color={selectedTextColor}
+            />
 </View>
 <View  style={{height:48,width:106,backgroundColor:"white",marginTop:6,paddingLeft:14,borderRadius: 6}}>
 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center',justifyContent:'space-between' }}>
-    <Text style={styles.quantityText}>{counter}</Text>
+    <Text style={styles.quantityText}>{item.counter}</Text>
     <View style={{flexDirection:'column'}}>
-    <TouchableOpacity onPress={incrementCounter}>
-      <Image
-        style={{height:8,width:10,marginRight:10,marginBottom:5}}
-        source={require('../TabScreens/up.png')}
-      />
-    </TouchableOpacity>
-    {/* <Text style={styles.quantityText}>{counter}</Text> */}
-    <TouchableOpacity onPress={decrementCounter}>
-      <Image
-        style={{height:8,width:10,marginRight:10}}
-        source={require('../TabScreens/down.png')}
-      />
-    </TouchableOpacity>
+    <TouchableOpacity onPress={() => incrementCounter(index)}>
+        <Image
+          style={{ height: 10, width: 10, marginRight: 10, marginBottom: 5 }}
+          source={require('../TabScreens/up.png')}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => decrementCounter(index)}>
+        <Image
+          style={{ height: 10, width: 10, marginRight: 10 }}
+          source={require('../TabScreens/down.png')}
+        />
+      </TouchableOpacity>
     </View>
   </View>
   </View>
@@ -552,8 +569,8 @@ const CreateInvoice = ({ navigation }) => {
              style={{fontSize:12,fontWeight:"bold",marginLeft:16,}}
              placeholder="RATE"
              placeholderTextColor={selectedTextColor}
-             value={ratetext}
-             onChangeText={(o) => setRateText(o)}
+             value={rate}
+                onChangeText={t => setRate(t)}
              color={selectedTextColor}
             />
           </View>
@@ -562,8 +579,8 @@ const CreateInvoice = ({ navigation }) => {
                 placeholder="$ 00"
                 placeholderTextColor="#000000"
                 keyboardType="numeric"
-                value={rate}
-                onChangeText={t => setRate(t)}
+                value={item.rate}
+             onChangeText={(t) => handleInvoiceItemChange(index, 'rate', t)}
               />
           </View>
           <View style={{shadowColor: "black",shadowOpacity:0.2,shadowRadius:10}}>

@@ -105,6 +105,7 @@ const Navigation = () => {
           }
         }
         } />
+        
       </Tab.Navigator>
     );
   };
@@ -118,6 +119,8 @@ const Navigation = () => {
         <Stack.Screen name="History" component={History} />
         <Stack.Screen name="SendModal" component={SendModal} />
         <Stack.Screen name="Pdf" component={Pdf} />
+        {/* <Stack.Screen name="CreateInvoice" component={CreateInvoice} /> */}
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -8,7 +8,7 @@ import {
   ScrollView,
   TextInput
 } from "react-native";
-
+ 
 const InvoiceGuide = ({navigation}) => {
   return (
     <View style={{ flex: 1 }}>
