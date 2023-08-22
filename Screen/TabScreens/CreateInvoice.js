@@ -373,7 +373,6 @@ const CreateInvoice = ({ navigation }) => {
         source={require('../TabScreens/up.png')}
       />
     </TouchableOpacity>
-    {/* <Text style={styles.quantityText}>{counter}</Text> */}
     <TouchableOpacity onPress={decrementCounter}>
       <Image
         style={{height:10,width:10,marginRight:10}}

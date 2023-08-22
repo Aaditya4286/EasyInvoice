@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationActions } from 'react-navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CommonActions } from '@react-navigation/native';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [securePassword, setSecurePassword] = useState(true);
- 
+  const [message, setMessage] = useState('');
+
   const handleLogin = () => {
-    fetch('https://invoice-generator-backend-testing.onrender.com/api/auth/signin',
-     {
+    setMessage(''); 
+    fetch('https://invoice-generator-backend-testing.onrender.com/api/auth/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,37 +23,60 @@ const Login = ({navigation}) => {
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data);
+ 
         if (data.success) {
-          navigation.navigate('Drawers');
+          if (data.data[0] && data.data[0].token) {
+            AsyncStorage.setItem('userToken', data.data[0].token)
+              .then(() => {
+                setMessage('Token has been stored successfully.');
+                navigation.dispatch(
+                  CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'Drawers' }],
+                  })
+                );
+              })
+              .catch(error => {
+                setMessage('Failed to store token.'); 
+                Alert.alert('Error', 'Failed to store token.');
+                console.error(error);
+              });
+          } else {
+            setMessage('Token not received.'); 
+            Alert.alert('Authentication Failed', 'Token not received.');
+          }
         } else {
+          setMessage(data.message); 
+          console.warn('Authentication failed with server response:', data);
           Alert.alert('Authentication Failed', data.message);
         }
       })
       .catch(error => {
+        setMessage('An error occurred while logging in.');
+        console.error('Error occurred during login:', error);
         Alert.alert('Error', 'An error occurred while logging in.');
-        console.error(error);
       });
   };
-
   
-
+  
   return (
     <View>
       <Image style={styles.image} source={require("../assets/ei.png")} />
       <Text style={styles.text}>Log In</Text>
 
       <View style={styles.inputContainer}>
-  <Text style={styles.label}>EMAIL ID</Text>
-  <View style={styles.passwordContainer}>
-  <TextInput
-    style={styles.input} 
-    value={email}
-    onChangeText={text => setEmail(text)}
-    placeholder="prem@yopmail.com"
-    keyboardType='email-address'
-  />
-</View>
-</View>
+        <Text style={styles.label}>EMAIL ID</Text>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.input} 
+            value={email}
+            onChangeText={text => setEmail(text)}
+            placeholder="prem@yopmail.com"
+            keyboardType='email-address'
+          />
+        </View>
+      </View>
 
       <View style={styles.inputContainer}>
         <Text style={styles.label}>PASSWORD</Text>
@@ -63,7 +87,6 @@ const Login = ({navigation}) => {
             onChangeText={text => setPassword(text)}
             placeholder="Enter your password"
             secureTextEntry={securePassword}
-            // onEndEditing={handleLogin}
           />
 
           <TouchableOpacity
@@ -83,8 +106,8 @@ const Login = ({navigation}) => {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-  <Text style={styles.buttonText}>LOG IN</Text>
-</TouchableOpacity>
+        <Text style={styles.buttonText}>LOG IN</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.buttonContainer} onPress={()=>navigation.navigate('SignUp')}>
         <View style={styles.signupButton}>
