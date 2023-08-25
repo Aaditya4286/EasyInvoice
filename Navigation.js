@@ -7,7 +7,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import Modal from 'react-native-modal';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -26,7 +25,6 @@ import TandC from './Screen/DrawerScreens/TandC';
 import Intro from './Screen/Intro';
 import Login from './Screen/Login';
 import ForgotPassword from './Screen/ForgotPassword';
-// import ChangePassword from './Screen/ChangePassword';
 import SignUp from './Screen/SignUp';
 import Account from './Screen/TabScreens/Account';
 import CreateInvoice from './Screen/TabScreens/CreateInvoice';
@@ -42,8 +40,6 @@ const Navigation = () => {
   const Tab = createBottomTabNavigator();
  
   const Drawers = () => {
-   
-
     return (
       <Drawer.Navigator
         drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}
@@ -74,7 +70,6 @@ const Navigation = () => {
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-        {/* <Stack.Screen name="ChangePassword" component={ChangePassword} /> */}
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Account" component={Account} />
       </Stack.Navigator>
@@ -119,8 +114,6 @@ const Navigation = () => {
         <Stack.Screen name="History" component={History} />
         <Stack.Screen name="SendModal" component={SendModal} />
         <Stack.Screen name="Pdf" component={Pdf} />
-        {/* <Stack.Screen name="CreateInvoice" component={CreateInvoice} /> */}
-
       </Stack.Navigator>
     </NavigationContainer>
   );

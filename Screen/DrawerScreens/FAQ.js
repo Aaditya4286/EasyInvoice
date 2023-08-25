@@ -101,7 +101,7 @@ const FAQ = ({navigation}) => {
         </TouchableOpacity>
         <Text style={styles.text}>FAQ</Text>
       </View>
-      <ScrollView>
+      <ScrollView style={{backgroundColor:'rgba(255, 255, 255, 1)'}}>
         <View>
           {data.map((item) => {
             const isExpanded = expandedItems.includes(item.id);
@@ -157,7 +157,12 @@ const styles = StyleSheet.create({
     backgroundColor:'white',
     width:343,
     alignSelf:'center',
-    marginBottom:24
+    marginBottom:24 ,
+    shadowColor: '#00000033',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    borderRadius:6
   },
   itemText: {
     fontSize: 18,

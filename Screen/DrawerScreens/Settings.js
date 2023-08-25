@@ -76,7 +76,7 @@ const Settings = ({navigation}) => {
         </TouchableOpacity>
         <Text style={styles.text}>Settings</Text>
       </View>
-      <ScrollView>
+      <ScrollView style={{backgroundColor:'rgba(255, 255, 255, 1)'}}>
         <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#2155CD', marginLeft: 16, marginTop: 32 }}>
           Contact Information
         </Text>
@@ -387,7 +387,11 @@ const Settings = ({navigation}) => {
           alignItems: 'center',
           position: 'relative',
           marginTop: 6, 
-          width: 343
+          width: 343,
+          shadowColor: '#00000033',
+          shadowOffset: { width: 3, height: 3 },
+          shadowOpacity: 0.5,
+          shadowRadius: 8,
         },
         input: {
           paddingHorizontal: 15,

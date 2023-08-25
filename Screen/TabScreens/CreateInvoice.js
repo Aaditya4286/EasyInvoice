@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from 'react';
 import {
-  View,                                                                                                   
+  View,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -93,15 +93,15 @@ const CreateInvoice = ({ navigation }) => {
     const updatedItems = [...invoiceItems];
     updatedItems[itemIndex].counter += 1;
     setInvoiceItems(updatedItems);
-  };
-  
-  const decrementCounter = (itemIndex) => {
+};
+
+const decrementCounter = (itemIndex) => {
     if (invoiceItems[itemIndex].counter !== 0) {
-      const updatedItems = [...invoiceItems];
-      updatedItems[itemIndex].counter -= 1;
-      setInvoiceItems(updatedItems);
+        const updatedItems = [...invoiceItems];
+        updatedItems[itemIndex].counter -= 1;
+        setInvoiceItems(updatedItems);
     }
-  };
+};
   
   const handleAddNewInvoiceItem = () => {
     const newItem = {
@@ -273,6 +273,20 @@ const CreateInvoice = ({ navigation }) => {
     setSelectedThemeColor('rgb(244, 239, 239)');
     setSelectedTextColor('black');
   };
+
+  const handleCounterIncrement=(type)=>{
+    let num= counter;
+    if(type==='add'){
+      num++;
+      setCounter(num)
+    }
+    else{
+      num--;
+      if(num>0){
+      setCounter(num)}
+    }
+
+  }
   return (
     <View style={{ flex: 1,backgroundColor:"white"}}>
       <View style={styles.header}>
@@ -306,7 +320,6 @@ const CreateInvoice = ({ navigation }) => {
               value={invoiceFrom}
               onChangeText={(v) => setInvoiceFrom(v)}
             />
-            {/* {!invoiceFrom && <Text style={styles.sign}>*</Text>} */}
           </View>
 
           <View>
@@ -364,16 +377,17 @@ const CreateInvoice = ({ navigation }) => {
               <View style={[styles.squareView,{backgroundColor: selectedThemeColor}]}>
                 <Text style={[styles.squareText,{color:selectedTextColor}]}>#</Text>
               </View>
+              {/* {invoiceItems.map((item, index) => ( */}
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center',justifyContent:'space-between' }}>
     <Text style={{marginLeft:10}}>{counter}</Text>
     <View style={{flexDirection:'column'}}>
-    <TouchableOpacity onPress={incrementCounter}>
+    <TouchableOpacity onPress={() => handleCounterIncrement('add')}>
       <Image
         style={{height:10,width:10,marginRight:10,marginBottom:5}}
         source={require('../TabScreens/up.png')}
       />
     </TouchableOpacity>
-    <TouchableOpacity onPress={decrementCounter}>
+    <TouchableOpacity onPress={() => handleCounterIncrement('minus')}>
       <Image
         style={{height:10,width:10,marginRight:10}}
         source={require('../TabScreens/down.png')}
@@ -381,6 +395,7 @@ const CreateInvoice = ({ navigation }) => {
     </TouchableOpacity>
     </View>
   </View>
+  {/* ))} */}
             </View>
           </View>
           <View>
@@ -526,7 +541,6 @@ const CreateInvoice = ({ navigation }) => {
   onChangeText={(text) => handleInvoiceItemChange(index, 'item', text)}
   placeholder="Description of service or product..."
 />
-
             </View>
 
           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:20}}>
@@ -657,7 +671,6 @@ const CreateInvoice = ({ navigation }) => {
               />
             </TouchableOpacity>
           </View>
-
 
           <View style={styles.buttonRow}>
       

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput
 } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Dashboard = ({navigation}) => {
   const [mytodo, setMyToDo] = useState('');
@@ -29,6 +30,7 @@ const Dashboard = ({navigation}) => {
         </TouchableOpacity>
         <Text style={styles.text}>Dashboard</Text>
       </View>
+      <ScrollView style={{backgroundColor:'#FFFFFF'}}>
       <Text style={{ marginTop: 32, marginHorizontal: 16 }}>
         Welcome to Easy Invoice Business Network — a new way to create and send invoices
       </Text>
@@ -70,6 +72,7 @@ const Dashboard = ({navigation}) => {
       <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText}>SEE ALL</Text>
       </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };

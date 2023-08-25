@@ -78,7 +78,7 @@ const InvoiceFeatures = ({navigation}) => {
           <Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
         <Text style={styles.text}>Invoice Features</Text>
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 ,backgroundColor:'#FFFFFF'}}>
         <ScrollView>
           <View>
             {data.map((item) => {
@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     height: 157,
     width: 343,
     alignSelf: "center",
-    marginBottom: 15, 
+    marginBottom: 15,
+    marginTop:15
   },
   whiteBox: {
     backgroundColor: "white", 
@@ -116,10 +117,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 3,
-    marginTop:16
+    // marginTop:16
   },
 
   itemImage: {

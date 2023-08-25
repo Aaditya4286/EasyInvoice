@@ -28,6 +28,7 @@ const AboutUs = ({navigation}) => {
         </TouchableOpacity>
         <Text style={styles.text}>About Us</Text>
       </View>
+      <ScrollView style={{backgroundColor:'rgba(255, 255, 255, 1)'}}>
 <Text style={{marginTop:32, alignSelf:'center',fontSize:18, fontWeight:'bold'}}>Welcome To Easy Invoice Generator</Text>
 
 <Image style={{height:185,width:315,alignSelf:'center'}}
@@ -39,7 +40,7 @@ const AboutUs = ({navigation}) => {
 <Text style={{fontSize:16,fontWeight:'600', textAlign:"center"}}>Thanks For Visiting Our Site</Text>
     
 <Text style={{fontSize:18,fontWeight:'600', textAlign:"center", color:"#2155CD"}}>Have a nice day !</Text>
-
+</ScrollView>
     </View>
   )
 }

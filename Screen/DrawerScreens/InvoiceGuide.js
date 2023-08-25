@@ -6,7 +6,6 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  TextInput
 } from "react-native";
  
 const InvoiceGuide = ({navigation}) => {
@@ -18,9 +17,9 @@ const InvoiceGuide = ({navigation}) => {
         <Text style={styles.text}>Invoice Guide</Text>
       </View>
     <View style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView style={{backgroundColor:'#FFFFFF'}}>
     <Text style={{marginTop:32, textAlign:'center', fontWeight:'400',marginHorizontal:16}}>Create & download invoices for free, If you want to save your invoice data on cloud just create your account.</Text>
-    <TouchableOpacity style={styles.button} >
+    <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Home")} >
         <Text style={styles.buttonText}>CREATE INVOICE NOW</Text>
       </TouchableOpacity>
 

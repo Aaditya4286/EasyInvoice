@@ -5,8 +5,10 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
 } from "react-native";
+import { ScrollView } from 'react-native-gesture-handler';
+import { SceneView } from 'react-navigation';
 
 const Account = () => {
   const [name, setName] = useState('');
@@ -29,6 +31,7 @@ const Account = () => {
       >
       <Text style={styles.text}>Edit Profile</Text>
     </View>
+    <ScrollView style={{height:'100%',backgroundColor:'#FFFFFF'}}>
     <View style={styles.inputContainer}>
     <Text style={styles.label}>NAME</Text>
     <View style={styles.passwordContainer}>
@@ -81,7 +84,7 @@ const Account = () => {
             style={styles.input}
             value={newpassword}
             onChangeText={text => setNewPassword(text)}
-            placeholder="*******"
+            placeholder='*******'
             secureTextEntry={securenewpassword}
           />
           <TouchableOpacity
@@ -122,8 +125,7 @@ const Account = () => {
       <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText}>SAVE</Text>
       </TouchableOpacity>
-
-
+      </ScrollView>
   </View>
   )
 }
@@ -155,8 +157,9 @@ inputContainer: {
   marginTop: 32,
   shadowColor: '#00000033',
   shadowOffset: { width: 3, height: 3 },
-  shadowOpacity: 0.3,
+  shadowOpacity: 0.8,
   shadowRadius: 8,
+  elevation:5
 },
 label: {
   marginBottom: 4,

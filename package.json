@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^18.0.1",
+    "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-community/datetimepicker": "6.7.3",
     "@react-native-picker/picker": "2.4.8",
     "@react-navigation/bottom-tabs": "^6.5.8",
@@ -30,6 +31,7 @@
     "react-native": "0.71.8",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-element-dropdown": "^2.9.0",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-image-crop-picker": "^0.40.0",
     "react-native-modal": "^13.0.1",
@@ -42,8 +44,7 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-web": "~0.18.10",
     "react-navigation": "^4.4.4",
-    "react-redux": "^8.1.1",
-    "@react-native-async-storage/async-storage": "1.17.11"
+    "react-redux": "^8.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

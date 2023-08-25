@@ -17,7 +17,7 @@ const PrivacyandPolicy = ({navigation}) => {
     <Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
         <Text style={styles.text}>Terms and Conditions</Text>
       </View>
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 , backgroundColor:'rgba(255, 255, 255, 1)'}}>
         <ScrollView>
             <Text style={{marginTop:32, alignSelf:'center',fontSize:18, fontWeight:'bold',marginHorizontal:12}}>Welcome to our invoice generator website! Before using our service, we kindly ask you to read and agree to the following terms and conditions.</Text>
            

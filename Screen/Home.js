@@ -190,7 +190,7 @@ const Home=({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,backgroundColor:'#FFFFFF' }}>
         <ScrollView>
           {/* <View
             style={{ flexDirection: "row", marginTop: 10, alignSelf: "center" }}
@@ -219,7 +219,6 @@ const Home=({ navigation }) => {
             />
           </View>
 
-          
           <View style={{ marginTop: 15 }}>
             <FlatList
               data={data}

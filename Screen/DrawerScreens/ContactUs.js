@@ -73,7 +73,7 @@ const ContactUs = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.text}>Contact Us</Text>
       </View>
-<ScrollView>
+<ScrollView style={{backgroundColor:'rgba(255, 255, 255, 1)'}}>
 <Text style={styles.text2}>Please use this form to contact us and we willget back to you as soon as possible</Text>
 <View style={styles.inputContainer}>
     <Text style={styles.label}>NAME</Text>
@@ -164,7 +164,7 @@ inputContainer: {
   marginTop: 32,
   shadowColor: '#00000033',
   shadowOffset: { width: 3, height: 3 },
-  shadowOpacity: 0.3,
+  shadowOpacity: 0.5,
   shadowRadius: 8,
 },
 label: {

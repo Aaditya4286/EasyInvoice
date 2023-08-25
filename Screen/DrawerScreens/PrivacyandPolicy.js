@@ -17,7 +17,7 @@ const PrivacyandPolicy = ({navigation}) => {
         <Image style={{ height: 12, width: 15, marginLeft: 18,marginTop:20 }} source={require('../DrawerScreens/mode.png')} /></TouchableOpacity>
         <Text style={styles.text}>Privacy Policy</Text>
       </View>
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 , backgroundColor:'rgba(255, 255, 255, 1)'}}>
         <ScrollView>
             <Text style={{marginTop:32, alignSelf:'center',fontSize:18, fontWeight:'bold', marginHorizontal:16}}>Our E-Invoicing website is committed to ensuring the privacy of its users and visitors. This privacy policy page outlines the information we collect, how we use it, and the measures we take to protect your data.</Text>
            

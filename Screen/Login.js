@@ -11,6 +11,7 @@ const Login = ({ navigation }) => {
 
   const handleLogin = () => {
     setMessage(''); 
+
     fetch('https://invoice-generator-backend-testing.onrender.com/api/auth/signin', {
       method: 'POST',
       headers: {
@@ -58,7 +59,6 @@ const Login = ({ navigation }) => {
         Alert.alert('Error', 'An error occurred while logging in.');
       });
   };
-  
   
   return (
     <View>
